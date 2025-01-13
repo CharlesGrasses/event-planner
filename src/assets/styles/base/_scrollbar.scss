@@ -1,0 +1,45 @@
+@import '../mixins/scrollbar';
+
+.custom-scrollbar {
+    padding-right: 4px;
+    padding-bottom: 4px;
+
+    // Webkit browsers (Chrome, Safari, Edge)
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--ocean-60);
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--ocean-15);
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
+
+        @media (hover: hover) {
+            &:hover {
+                background: var(--ocean-12);
+            }
+        }
+
+        &:active {
+            background: var(--ocean-30);
+        }
+    }
+}
+
+// Firefox-specific styles
+@-moz-document url-prefix() {
+    .custom-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: var(--ocean-15) var(--ocean-60);
+    }
+}
+
+.hide-scrollbar {
+    @include displayScrollbar(none);
+}

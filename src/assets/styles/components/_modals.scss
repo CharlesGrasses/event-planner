@@ -1,0 +1,21 @@
+.modalBackground {
+    background-color: var(--aqua-water-62);
+}
+
+.modalContainer {
+    background-color: var(--aqua-water-20);
+}
+
+.modalGatheringList {
+    max-height: 50vh;
+}
+
+.modalGatheringListItem {
+    border-color: var(--ocean-50);
+}
+
+@media (hover: hover) {
+    .modalGatheringListItem:hover {
+        background-color: var(--aqua-water-10);
+    }
+}

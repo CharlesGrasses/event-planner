@@ -1,0 +1,11 @@
+@mixin displayScrollbar($display: none){
+    -ms-overflow-style: $display;
+
+    &::-webkit-scrollbar {
+        display: $display;
+    }
+
+    @-moz-document url-prefix() {
+        scrollbar-width: $display;
+    }
+}

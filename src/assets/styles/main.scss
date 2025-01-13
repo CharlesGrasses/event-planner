@@ -1,0 +1,29 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import './base/variables';
+@import './base/assorted';
+@import './base/scrollbar';
+
+@import './components/calendar';
+@import './components/modals';
+
+@font-face {
+    font-family: 'Ubuntu Sans';
+    src: url('/fonts/UbuntuSans-VariableFont_wdth,wght.ttf') format('truetype-variations');
+    font-weight: 100 800;
+    font-stretch: 75% 100%;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ubuntu Sans';
+    src: url('/fonts/UbuntuSans-Italic-VariableFont_wdth,wght.ttf') format('truetype-variations');
+    font-weight: 100 800;
+    font-stretch: 75% 100%;
+    font-style: italic;
+    font-display: swap;
+}
+

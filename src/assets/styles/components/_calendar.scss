@@ -1,0 +1,44 @@
+.calendarHolder {
+    background-color: var(--aqua-water-20);
+    border-color: var(--aqua-stone);
+}
+
+.calendarHeader {
+    background-color: var(--aqua-water-50);
+}
+
+.calendarTitle {
+    color: var(--aqua-water-20);
+}
+
+@import '../mixins/text';
+
+.calendarCell {
+    border-color: var(--ocean-50);
+}
+
+.calendarDateBorderRight {
+    border-right-width: 1px;
+}
+
+.calendarDateBorderBottom {
+    border-bottom-width: 1px;
+}
+
+.calendarDatefromThePast {
+    background-color: var(--aqua-algae-35);
+}
+
+.calendarDate {
+    cursor: pointer;
+}
+
+@media (hover: hover) {
+    .calendarDate:hover {
+        background-color: var(--aqua-water-10);
+    }
+}
+
+.calendarDateToday {
+    background-color: var(--aqua-sand);
+}

@@ -1,0 +1,4 @@
+@mixin aquaText($weight:500 , $color:--aqua-water-60) {
+    font-weight: $weight;
+    color: var($color);
+}
