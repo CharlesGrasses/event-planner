@@ -97,6 +97,8 @@ const Calendar = ({ locale = 'en-US' }: { locale?: string }) => {
             ) : (
                 <WeeklyCalendar
                     locale={locale}
+                    currentDate={currentDate}
+                    onNavigate={navigateCalendar}
                 />
             )}
         </div>
