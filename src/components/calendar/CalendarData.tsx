@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import cx from "classnames";
 
 import { DatesUtilities } from "@/services/common";
+import APIrequests from "@/services/api-requests";
 import GatheringListModal from "../modal/Gatherings/GatheringListModal";
 
 import { Gathering } from "@/types/gatherings";
@@ -51,7 +52,7 @@ const CalendarData = (
             const fetchPromises = calendarDays.map(async (date: Date) => {
                 const dateKey = getDateKey(date);
                 try {
-                    gatheringsMap[dateKey] = await getGatheringsForDate(date);
+                    gatheringsMap[dateKey] = await APIrequests.getGatheringsForDate(date);
                 } catch (error) {
                     console.error(`!!!!!!!!!!!!!!!!!!!!ENVENT PLANER ERROR:`);
                     console.error(`Error fetching gatherings for ${date}:`, error);
@@ -65,71 +66,6 @@ const CalendarData = (
 
         fetchGatheringsForAllDates();
     }, [calendarDays]);
-
-    const getGatheringsForDate = async (date: Date) => {
-        // CAMBIAR CUANDO SE HAYA CREADO LA API
-        // Mocking variables
-        const venues = [
-            "Plaza de armas",
-            "Teatro Municipal",
-            "Parque Forestal",
-            "Centro Cultural GAM",
-            "Club Chocolate",
-            "Bar La Obra",
-            "Estadio Nacional",
-            "Blondie",
-            "La Cúpula",
-            "Centro de Eventos Chimkowe"
-        ];
-        const timeSlots = [
-            "7:00 PM - 8:30 PM",
-            "8:00 PM - 9:30 PM",
-            "9:00 PM - 10:30 PM",
-            "10:00 PM - 11:30 PM",
-            "6:30 PM - 8:00 PM",
-            "7:30 PM - 9:00 PM",
-            "8:30 PM - 10:00 PM",
-            "9:30 PM - 11:00 PM",
-            "6:00 PM - 7:30 PM",
-            "11:00 PM - 12:30 AM"
-        ];
-        const bands = [
-            "Oscilan",
-            "Phuyu y la fantasma",
-            "Asia Menor",
-            "Chini.png",
-            "Estoy bien",
-            "Sinópticos",
-            "Monos Chinos",
-            "Monos Chinos Submarinos",
-            "Niños del Cerro",
-            "Javiera Electra",
-            "Los Pulentos",
-            "Mist",
-            "Weezer",
-            "Gepe",
-            "Alex Andwanter",
-            "El mató a un policía motorizado",
-            "Negra Ácida",
-            "Dënver",
-            "Pau",
-            "Brígida Orquesta",
-            "Dolorío y los tunantes"
-        ];
-        const generateCapacity = () => {
-            const capacities = [200, 300, 400, 500, 750, 1000, 1500, 2000, 2500, 3000];
-            return capacities[Math.floor(Math.random() * capacities.length)];
-        };
-
-        return bands.slice(0, Math.floor(Math.random() * bands.length)).map((band, index) => ({
-            id: `${index + 1}`,
-            title: `Concierto ${band}`,
-            time: timeSlots[index % timeSlots.length],
-            location: venues[index % venues.length],
-            capacity: generateCapacity(),
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In hendrerit auctor odio, sit amet gravida est tincidunt iaculis. Quisque luctus porta dolor, vitae vestibulum leo luctus ac. Suspendisse interdum ante a sapien dapibus, nec porttitor nunc eleifend. Curabitur dignissim, quam vitae tempus molestie, enim arcu feugiat mauris, et tempor neque massa semper sem."
-        }));
-    };
 
     const handleDateClick = (date: Date) => {
         if (!DatesUtilities.isPast(date)) {
