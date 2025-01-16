@@ -41,7 +41,7 @@ const WeeklyCalendar = ({
         return dates;
     };
 
-    const hours = Array.from({ length: 24 }, (_, i) => i);
+    const hours = Array.from({ length: 13 }, (_, i) => i+12);
 
     const getTimeSlotKey = (date: Date, hour: number) => {
         const slotDate = new Date(date);
@@ -89,7 +89,7 @@ const WeeklyCalendar = ({
                 
                 {/* Time column */}
                 <div>
-                    <div className='h-16 border-r border-b border-[var(--ocean-50)] flex items-center justify-center text-[var(--aqua-water-50)] titleText'>
+                    <div className='h-16 flex items-center justify-center text-[var(--aqua-water-50)] titleText'>
                         Hora de inicio
                     </div>
                     {hours.map(hour => (
