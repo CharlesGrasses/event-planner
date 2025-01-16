@@ -84,7 +84,7 @@ const CalendarData = (
                             className={cx(
                                 `aspect-video transition-colors flex calendarCell p-1`,
                                 {
-                                    calendarDatefromThePast: DatesUtilities.isPast(date),
+                                    calendarDateFromThePast: DatesUtilities.isPast(date),
                                     calendarDate: !DatesUtilities.isPast(date),
                                     calendarDateBorderRight: (index%7) < 6,
                                     calendarDateBorderBottom: index < calendarDays.length - 7
