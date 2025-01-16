@@ -88,12 +88,14 @@ const WeeklyCalendar = ({
             <div className='grid grid-cols-8'>
                 
                 {/* Time column */}
-                <div className='border-r border-[var(--ocean-50)]'>
-                    <div className='h-16 border-b border-[var(--ocean-50)]'></div>
+                <div>
+                    <div className='h-16 border-r border-b border-[var(--ocean-50)] flex items-center justify-center text-[var(--aqua-water-50)] titleText'>
+                        Hora de inicio
+                    </div>
                     {hours.map(hour => (
                         <div
                             key={hour}
-                            className='h-16 border-b border-[var(--ocean-50)] flex items-center justify-center text-[var(--aqua-water-50)]'
+                            className='h-14 border-r border-[var(--ocean-50)] flex items-center justify-center text-[var(--aqua-water-50)]'
                         >
                             {`${hour.toString().padStart(2,'0')}:00`}
                         </div>
@@ -128,7 +130,7 @@ const WeeklyCalendar = ({
                                     key={`${date.toISOString()}-${hour}`}
                                     onClick={() => !isPast && handleTimeSlotClick(date, hour)}
                                     className={cx(
-                                        'h-16 border-b border-[var(--ocean-50)] transition-colors p-1',
+                                        'h-14 border-b border-[var(--ocean-50)] flex transition-colors p-1',
                                         {
                                             'border-r': dateIndex < 6,
                                             'calendarDateFromThePast': isPast,
