@@ -59,14 +59,14 @@ namespace DatesUtilities {
 
     export function userWdayComputer (
         locale:string = 'en-US',
-        userWday:string = weekdayFormatter.format(new Date(2024, 6, 0))
+        userWday:string = weekdayFormatter.format((locale.startsWith('en') ? new Date(2024, 6, 0) :new Date(2024, 6, 1)))
     ) {
         return weekdaysTranslation(locale, 'platformTOdevice', userWday);
     }
 
     export function computerWdayUser (
         locale:string = 'en-US',
-        userWday:string = weekdayFormatter.format(new Date(2024, 6, 0))
+        userWday:string = weekdayFormatter.format((locale.startsWith('en') ? new Date(2024, 6, 0) :new Date(2024, 6, 1)))
     ){
         return weekdaysTranslation(locale, 'deviceTOplatform', userWday);
     }
