@@ -71,11 +71,100 @@ const WeeklyCalendar = ({
         fetchGatheringsForWeek();
     }, [currentDate]);
 
+    const handleTimeSlotClick = (date: Date, hour: number) => {
+        if (!DatesUtilities.isPast(date)) {
+            const slotDate = new Date(date);
+            slotDate.setHours(hour, 0, 0, 0);
+            setSelectedDateTime(slotDate);
+        }
+    };
 
     const weekDates = getWeekDates(currentDate);
 
     return (
-        <></>
+        <div>
+            {/* Calendar Grid */}
+            <div className='grid grid-cols-8'>
+                
+                {/* Time column */}
+                <div className='border-r border-[var(--ocean-50)]'>
+                    <div className='h-16 border-b border-[var(--ocean-50)]'></div>
+                    {hours.map(hour => (
+                        <div
+                            key={hour}
+                            className='h-16 border-b border-[var(--ocean-50)] flex items-center justify-center text-[var(--aqua-water-50)]'
+                        >
+                            {`${hour.toString().padStart(2,'0')}:00`}
+                        </div>
+                    ))}
+                </div>
+
+                {/* Days Columns */}
+                {weekDates.map((date, dateIndex) => (
+                    <div key={date.toISOString()} className='relative'>
+
+                        {/* Day header */}
+                        <div className='h-16 border-b border-[var(--ocean-50)] flex flex-col items-center jusstify-center'>
+                            <div className='text-lg titleText'>
+                                {weekDayFormatter.format(date)}
+                            </div>
+                            <div className={cx(
+                                'text-base titleText rounded-full p-1',
+                                { calendarDateToday: DatesUtilities.isToday(date) }
+                            )}>
+                                {dateFormatter.format(date)}
+                            </div>
+                        </div>
+
+                        {/* Time slots */}
+                        {hours.map(hour => {
+                            const timeSlotKey = getTimeSlotKey(date, hour);
+                            const slotGatherings = timeSlotGatherings[timeSlotKey];
+                            const isPast = DatesUtilities.isPast(new Date(date.setHours(hour)));
+
+                            return (
+                                <div
+                                    key={`${date.toISOString()}-${hour}`}
+                                    onClick={() => !isPast && handleTimeSlotClick(date, hour)}
+                                    className={cx(
+                                        'h-16 border-b border-[var(--ocean-50)] transition-colors p-1',
+                                        {
+                                            'border-r': dateIndex < 6,
+                                            'calendarDateFromThePast': isPast,
+                                            'calendarDate cursor-pointer': !isPast
+                                        }
+                                    )}
+                                >
+                                    {slotGatherings.length > 0 && (
+                                        <div className='mt-1 text-xs space-y-0.5 overflow-hidden'>
+                                            {slotGatherings.map((gathering, idx) => (
+                                                <div
+                                                    key={idx}
+                                                    className='truncate text-[var(--aqua-water-50)] px-1 py-0.5'
+                                                >
+                                                    {gathering.title}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+                ))}
+            </div>
+
+            {/* GatheringsModal */}
+            {selectedDateTime && (
+                <GatheringListModal
+                    locale={locale}
+                    isOpen={!!selectedDateTime}
+                    onClose={() => setSelectedDateTime(null)}
+                    selectedDate={selectedDateTime}
+                    gatherings={timeSlotGatherings[selectedDateTime.toISOString()] || []}
+                />
+            )}
+        </div>
     );
 };
 
