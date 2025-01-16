@@ -5,6 +5,8 @@ import APIrequests from '@/services/api-requests';
 import GatheringListModal from '@/components/modal/Gatherings/GatheringListModal';
 import { Gathering } from '@/types/gatherings';
 
+const USAWeekdayFormatter = new Intl.DateTimeFormat('en-US', { weekday: 'short'});
+
 interface TimeSlotGatherings {
     [key: string]: Gathering[];
 }
@@ -23,9 +25,8 @@ const WeeklyCalendar = ({
     const [selectedDateTime, setSelectedDateTime] = useState<Date | null>(null);
     const [timeSlotGatherings, setTimeSlotGatherings] = useState<TimeSlotGatherings>({});
 
-    const weekDayFormatter = new Intl.DateTimeFormat(locale, { weekday: 'short' });
+    const computerWeekdayUser = DatesUtilities.computerWdayUser(locale);
     const dateFormatter = new Intl.DateTimeFormat(locale, { day: 'numeric' });
-    const timeFormatter = new Intl.DateTimeFormat(locale, { hour: 'numeric', hour12: false });
 
     const getWeekDates = (date: Date) => {
         const start = new Date(date);
@@ -106,7 +107,7 @@ const WeeklyCalendar = ({
                         {/* Day header */}
                         <div className='h-16 border-b border-[var(--ocean-50)] flex flex-col items-center jusstify-center'>
                             <div className='text-lg titleText'>
-                                {weekDayFormatter.format(date)}
+                                {computerWeekdayUser[date.getDay()].shortName}
                             </div>
                             <div className={cx(
                                 'text-base titleText rounded-full p-1',
