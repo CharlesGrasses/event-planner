@@ -119,7 +119,7 @@ const WeeklyCalendar = ({
                         {/* Time slots */}
                         {hours.map(hour => {
                             const timeSlotKey = getTimeSlotKey(date, hour);
-                            const slotGatherings = timeSlotGatherings[timeSlotKey];
+                            const slotGatherings = timeSlotGatherings[timeSlotKey] || [];
                             const isPast = DatesUtilities.isPast(new Date(date.setHours(hour)));
 
                             return (
