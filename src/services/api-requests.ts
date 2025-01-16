@@ -39,11 +39,11 @@ namespace APIrequests {
 
     // CAMBIAR CUANDO SE HAYA CREADO LA API
     export async function getGatheringsForDate (date: Date) {
-        const hour = Math.random() * 12;
+        const hour = Math.floor(Math.random() * 12);
         return bands.slice(0, Math.floor(Math.random() * bands.length)).map((band, index) => ({
             id: `${index + 1}`,
             title: `${band} en concierto`,
-            time: `${hour}:00 - ${hour + 2}:00`,
+            time: `${hour}:00 PM - ${hour + 2}:00 PM`,
             location: venues[index % venues.length],
             capacity: 200 + Math.floor(Math.random() * 2000),
             description: description
