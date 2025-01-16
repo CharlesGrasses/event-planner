@@ -41,7 +41,7 @@ const CalendarData = (
 ) => {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [dateGatherings, setDateGatherings] = useState<DateGatherings>({});
-    const DayMonthFormatter = new Intl.DateTimeFormat(locale, { day: 'numeric'});
+    const dateFormatter = new Intl.DateTimeFormat(locale, { day: 'numeric'});
 
     const getDateKey = (date: Date) => date.toISOString().split('T')[0];
 
@@ -101,9 +101,9 @@ const CalendarData = (
                                     )}
                                 >
                                     {
-                                        DayMonthFormatter.format(date).length < 2 
-                                        ? `${DayMonthFormatter.format(date)}\u00A0\u00A0`
-                                        : `${DayMonthFormatter.format(date)}\u00A0`
+                                        dateFormatter.format(date).length < 2 
+                                        ? `${dateFormatter.format(date)}\u00A0\u00A0`
+                                        : `${dateFormatter.format(date)}\u00A0`
                                     }
                                 </div>
                             </div>
