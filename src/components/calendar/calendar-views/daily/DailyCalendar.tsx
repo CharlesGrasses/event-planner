@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import APIrequests from '@/services/api-requests';
 
@@ -24,39 +24,57 @@ const DailyCalendar = ({
     locale = 'en-US',
     currentDate
 }: DailyCalendarProps) => {
-    // Create a new Date object to avoid mutating the prop
-    const displayDate = new Date(currentDate.getTime());
+    const displayDate = useMemo(() => new Date(currentDate.getTime()), [currentDate.getTime()]);
     const [selectedDateTime, setSelectedDateTime] = useState<Date | null>(null);
     const [timeSlotGatherings, setTimeSlotGatherings] = useState<TimeSlotGatherings>({});
 
-    const hours = Array.from({ length: 16 }, (_, i) => i + 9);
+    const hours = useMemo(() => Array.from({ length: 16 }, (_, i) => i + 9), []);
 
     const getTimeSlotKey = (date: Date, hour: number) => {
-        const slotDate = new Date(date);
+        // Create a new date object to avoid mutations
+        const slotDate = new Date(date.getTime());
         slotDate.setHours(hour, 0, 0, 0);
         return slotDate.toISOString();
     };
 
     useEffect(() => {
+        let isMounted = true;
+
         const fetchGatheringsForDay = async () => {
             const gatheringsMap: TimeSlotGatherings = {};
 
-            const fetchPromises = hours.map(async hour => {
-                const timeSlotKey = getTimeSlotKey(displayDate, hour);
-                try {
-                    gatheringsMap[timeSlotKey] = await APIrequests.getGatheringsForTimeSlot(displayDate, hour);
-                } catch (error) {
-                    console.error(`Error fetching gatherings for ${timeSlotKey}:`, error);
-                    gatheringsMap[timeSlotKey] = [];
-                }
-            });
+            try {
+                const fetchPromises = hours.map(async hour => {
+                    const timeSlotKey = getTimeSlotKey(displayDate, hour);
+                    try {
+                        gatheringsMap[timeSlotKey] = await APIrequests.getGatheringsForTimeSlot(displayDate, hour);
+                    } catch (error) {
+                        console.error(`Error fetching gatherings for ${timeSlotKey}:`, error);
+                        gatheringsMap[timeSlotKey] = [];
+                    }
+                });
 
-            await Promise.all(fetchPromises);
-            setTimeSlotGatherings(gatheringsMap);
+                await Promise.all(fetchPromises);
+                
+                if (isMounted) {
+                    setTimeSlotGatherings(gatheringsMap);
+                }
+            } catch (error) {
+                console.error('Error fetching gatherings:', error);
+                if (isMounted) {
+                    setTimeSlotGatherings({});
+                }
+            }
         };
 
         fetchGatheringsForDay();
-    }, [displayDate]);
+
+        return () => {
+            isMounted = false;
+        };
+    }, [displayDate, hours]);
+
+    const dateKey = useMemo(() => displayDate.toISOString(), [displayDate]);
 
     return (
         <div>
@@ -74,7 +92,7 @@ const DailyCalendar = ({
                     />
 
                     {hours.map(hour => (
-                        <div key={`${displayDate.toISOString()}-${hour}`}>
+                        <div key={`${dateKey}-${hour}`}>
                             <HourCalendarSlotData
                                 date={displayDate}
                                 hour={hour}
