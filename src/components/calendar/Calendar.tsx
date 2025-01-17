@@ -14,42 +14,45 @@ interface CalendarProps {
 }
 
 
-const Calendar = (
-    {
-        locale = 'en-US'
-    }: CalendarProps
-) => {
-
+const Calendar = ({
+    locale = 'en-US'
+}: CalendarProps) => {
     const [currentDate, setCurrentDate] = useState(new Date());
-    const [year, setYear] = useState(currentDate.getFullYear());
-    const [monthNumber, setMonth] = useState(currentDate.getMonth());
     const [view, setView] = useState<CalendarView>('month');
 
-    const setCalendarStates = (date: Date) => {
-        setCurrentDate(date);
-        setYear(date.getFullYear());
-        setMonth(date.getMonth());
-    };
-
     const navigateCalendar = (direction: number, chevronClick: boolean = true) => {
-        const newDate = chevronClick ? new Date(year, monthNumber, 1) : new Date(currentDate);
-        if (view === 'month') {
-            newDate.setMonth(currentDate.getMonth() + direction);
-        } else if (view === 'week') {
-            newDate.setDate(currentDate.getDate() + direction * 7);
-        } else {
-            newDate.setDate(currentDate.getDate() + direction * 1);
+        const newDate = new Date(currentDate);
+        
+        switch(view) {
+            case 'month':
+                newDate.setMonth(currentDate.getMonth() + direction);
+                break;
+            case 'week':
+                newDate.setDate(currentDate.getDate() + (direction * 7));
+                break;
+            case 'day':
+                newDate.setDate(currentDate.getDate() + direction);
+                break;
         }
-        setCalendarStates(newDate);
+        
+        setCurrentDate(newDate);
     };
 
     const toggleView = () => {
-        setView(prev => prev === 'month' ? 'week' : (prev === 'week' ? 'day' : 'month'));
+        setView((prev:any) => {
+            switch(prev) {
+                case 'month':
+                    return 'week';
+                case 'week':
+                    return 'day';
+                default:
+                    return 'month';
+            }
+        });
     };
 
     return (
         <div className='rounded-2xl border shadow-lg w-full max-w-screen-2xl mx-auto overflow-hidden m-4 calendarHolder'>
-
             {/* Calendar Header */}
             <CalendarHeader
                 locale={locale}
