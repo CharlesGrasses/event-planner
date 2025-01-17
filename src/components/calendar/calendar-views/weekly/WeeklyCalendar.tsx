@@ -99,13 +99,15 @@ const WeeklyCalendar = (
                         />
 
                         {hours.map(hour => (
-                            <WeeklyCalendarSlotData
-                                date={date}
-                                hour={hour}
-                                dateIndex={dateIndex}
-                                slotGatherings={timeSlotGatherings[getTimeSlotKey(date, hour)] || []}
-                                onClick={setSelectedDateTime}
-                            />
+                            <div key={`${date.toISOString()}-${hour}`}>
+                                <WeeklyCalendarSlotData
+                                    date={date}
+                                    hour={hour}
+                                    dateIndex={dateIndex}
+                                    slotGatherings={timeSlotGatherings[getTimeSlotKey(date, hour)] || []}
+                                    onClick={setSelectedDateTime}
+                                />
+                            </div>
                         ))}
                     </div>
                 ))}
