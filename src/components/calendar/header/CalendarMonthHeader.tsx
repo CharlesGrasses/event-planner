@@ -14,9 +14,12 @@ interface CalendarMonthHeaderProps {
 const CalendarMonthHeader = ({ 
     locale = 'es-CL',
     navigateCalendar,
-    currentDate = new Date(),
+    currentDate,
     view = 'month'
 }: CalendarMonthHeaderProps) => {
+    // Create a stable date reference
+    const displayDate = new Date(currentDate.getTime());
+    
     const getDateFormat = () => {
         const options: Intl.DateTimeFormatOptions = { year: 'numeric' };
         
@@ -41,7 +44,7 @@ const CalendarMonthHeader = ({
     return (
         <div className='flex flex-row items-center'>
             <h3 className='text-2xl font-bold calendarTitle'>
-                {Assorted.toUpperCaseFirstLetter(getDateFormat().format(currentDate))}
+                {Assorted.toUpperCaseFirstLetter(getDateFormat().format(displayDate))}
             </h3>
             <div className='flex items-center space-x-4 ml-4'>
                 <button
