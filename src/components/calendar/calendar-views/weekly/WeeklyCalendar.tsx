@@ -7,9 +7,9 @@ import APIrequests from '@/services/api-requests';
 import { Gathering } from '@/types/gatherings';
 
 import GatheringListModal from '@/components/modal/Gatherings/GatheringListModal';
-import WeeklyCalendarSlotData from '@/components/calendar/calendar-views/weekly/WeeklyCalendarSlotData';
-import WeeklyDayHeader from '@/components/calendar/calendar-views/weekly/WeeklyDayHeader';
-import WeeklyTimeColumn from '@/components/calendar/calendar-views/weekly/WeeklyTimeColumn';
+import HourCalendarSlotData from '@/components/calendar/calendar-views/common/slot-data/HourCalendarSlotData';
+import DayHeader from '@/components/calendar/calendar-views/common/DayHeader';
+import TimeColumn from '@/components/calendar/calendar-views/common/TimeColumn';
 
 
 interface TimeSlotGatherings {
@@ -85,7 +85,7 @@ const WeeklyCalendar = (
             <div className='grid grid-cols-[9%_13%_13%_13%_13%_13%_13%_13%]'>
                 
                 {/* Time column */}
-                <WeeklyTimeColumn
+                <TimeColumn
                     hours={hours}
                 />
 
@@ -93,14 +93,14 @@ const WeeklyCalendar = (
                 {weekDates.map((date, dateIndex) => (
                     <div key={date.toISOString()} className='relative'>
 
-                        <WeeklyDayHeader
+                        <DayHeader
                             locale={locale}
                             date={date}
                         />
 
                         {hours.map(hour => (
                             <div key={`${date.toISOString()}-${hour}`}>
-                                <WeeklyCalendarSlotData
+                                <HourCalendarSlotData
                                     date={date}
                                     hour={hour}
                                     dateIndex={dateIndex}
