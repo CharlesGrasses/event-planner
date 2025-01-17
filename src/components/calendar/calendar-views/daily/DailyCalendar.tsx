@@ -7,9 +7,9 @@ import APIrequests from '@/services/api-requests';
 import { Gathering } from '@/types/gatherings';
 
 import GatheringListModal from '@/components/modal/Gatherings/GatheringListModal';
-import HourCalendarSlotData from '@/components/calendar/calendar-views/slot-data/HourCalendarSlotData';
-import DailyDayHeader from '@/components/calendar/calendar-views/daily/DailyDayHeader';
-import DailyTimeColumn from '@/components/calendar/calendar-views/daily/DailyTimeColumn';
+import HourCalendarSlotData from '@/components/calendar/calendar-views/common/slot-data/HourCalendarSlotData';
+import DayHeader from '@/components/calendar/calendar-views/common/DayHeader';
+import TimeColumn from '@/components/calendar/calendar-views/common/TimeColumn';
 
 
 interface TimeSlotGatherings {
@@ -69,14 +69,14 @@ const DailyCalendar = (
             <div className='grid grid-cols-[10%_90%]'>
                 
                 {/* Time column */}
-                <DailyTimeColumn
+                <TimeColumn
                     hours={hours}
                 />
 
                 {/* Day column */}
                 <div className='relative'>
 
-                    <DailyDayHeader
+                    <DayHeader
                         locale={locale}
                         date={currentDate}
                     />

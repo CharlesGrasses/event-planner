@@ -5,7 +5,7 @@ import { DatesUtilities } from "@/services/common";
 
 import { Gathering } from '@/types/gatherings';
 
-import { DayCalendarSlotData } from '@/components/calendar/calendar-views/slot-data/DayCalendarSlotData';
+import { DayCalendarSlotData } from '@/components/calendar/calendar-views/common/slot-data/DayCalendarSlotData';
 
 
 interface WeeklyCalendarSlotDataProps {

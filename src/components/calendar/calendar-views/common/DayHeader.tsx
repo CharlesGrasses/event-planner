@@ -4,17 +4,17 @@ import cx from 'classnames';
 import { DatesUtilities } from '@/services/common';
 
 
-interface DailyDayHeaderProps {
+interface DayHeaderProps {
     locale: string,
     date: Date
 }
 
 
-const DailyDayHeader = (
+const DayHeader = (
     {
         locale = 'en-US',
         date = new Date()
-    }: DailyDayHeaderProps
+    }: DayHeaderProps
 ) => {
 
     const computerWeekdayUser = DatesUtilities.computerWdayUser(locale);
@@ -35,4 +35,4 @@ const DailyDayHeader = (
     );
 };
 
-export default DailyDayHeader;
+export default DayHeader;

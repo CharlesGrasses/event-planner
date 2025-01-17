@@ -1,15 +1,15 @@
 import React from 'react';
 
 
-interface DailyTimeColumnProps {
+interface TimeColumnProps {
     hours: Array<number>
 }
 
 
-const DailyTimeColumn = (
+const TimeColumn = (
     {
         hours = Array.from({ length: 13 }, (_, i) => i+12)
-    }: DailyTimeColumnProps
+    }: TimeColumnProps
 ) => {
 
     return (
@@ -29,4 +29,4 @@ const DailyTimeColumn = (
     );
 };
 
-export default DailyTimeColumn;
+export default TimeColumn;
