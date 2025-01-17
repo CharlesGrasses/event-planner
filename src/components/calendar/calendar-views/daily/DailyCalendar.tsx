@@ -87,6 +87,7 @@ const DailyCalendar = (
                             <HourCalendarSlotData
                                 date={currentDate}
                                 hour={hour}
+                                dateIndex={6}
                                 slotGatherings={timeSlotGatherings[getTimeSlotKey(currentDate, hour)] || []}
                                 onClick={setSelectedDateTime}
                             />

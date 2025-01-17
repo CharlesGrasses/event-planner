@@ -35,8 +35,10 @@ const Calendar = (
         const newDate = chevronClick ? new Date(year, monthNumber, 1) : new Date(currentDate);
         if (view === 'month') {
             newDate.setMonth(currentDate.getMonth() + direction);
-        } else {
+        } else if (view === 'week') {
             newDate.setDate(currentDate.getDate() + direction * 7);
+        } else {
+            newDate.setDate(currentDate.getDate() + direction * 1);
         }
         setCalendarStates(newDate);
     };
