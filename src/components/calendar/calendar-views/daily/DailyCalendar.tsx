@@ -79,6 +79,7 @@ const DailyCalendar = (
                     <DayHeader
                         locale={locale}
                         date={currentDate}
+                        daily={true}
                     />
 
                     {hours.map((hour, index) => (

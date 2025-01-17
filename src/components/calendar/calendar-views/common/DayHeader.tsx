@@ -6,14 +6,16 @@ import { DatesUtilities } from '@/services/common';
 
 interface DayHeaderProps {
     locale: string,
-    date: Date
+    date: Date,
+    daily: boolean
 }
 
 
 const DayHeader = (
     {
         locale = 'en-US',
-        date = new Date()
+        date = new Date(),
+        daily = false
     }: DayHeaderProps
 ) => {
 
@@ -21,13 +23,27 @@ const DayHeader = (
     const dateFormatter = new Intl.DateTimeFormat(locale, { day: 'numeric' });
 
     return (
-        <div className='h-16 border-b border-[var(--ocean-50)] flex flex-col items-center jusstify-center'>
-            <div className='text-lg titleText'>
+        <div className={cx(
+            `h-16 border-b border-[var(--ocean-50)] flex items-center jusstify-center`,
+            {
+                'flex-col': !daily
+            }
+        )}>
+            <div className={cx(
+                {
+                    'text-lg': !daily,
+                    'text-2xl': daily
+                }
+            )}>
                 {computerWeekdayUser[date.getDay()].shortName}
             </div>
             <div className={cx(
-                'text-base titleText rounded-full p-1',
-                { calendarDateToday: DatesUtilities.isToday(date) }
+                'rounded-full p-1',
+                {
+                    calendarDateToday: DatesUtilities.isToday(date),
+                    'text-base': !daily,
+                    'text-2xl': daily
+                }
             )}>
                 {dateFormatter.format(date)}
             </div>

@@ -96,6 +96,7 @@ const WeeklyCalendar = (
                         <DayHeader
                             locale={locale}
                             date={date}
+                            daily={false}
                         />
 
                         {hours.map(hour => (

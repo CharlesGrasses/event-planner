@@ -7,7 +7,7 @@ import { CalendarView } from '@/types/calendar';
 import CalendarHeader from '@/components/calendar/header/CalendarHeader';
 import MonthlyCalendar from '@/components/calendar/calendar-views/monthly/MonthlyCalendar';
 import WeeklyCalendar from '@/components/calendar/calendar-views/weekly/WeeklyCalendar';
-//import DailyCalendar from './calendar-views/daily/DailyCalendar';
+import DailyCalendar from './calendar-views/daily/DailyCalendar';
 
 interface CalendarProps {
     locale: string;
@@ -42,7 +42,7 @@ const Calendar = (
     };
 
     const toggleView = () => {
-        setView(prev => prev === 'month' ? 'week' : 'month');
+        setView(prev => prev === 'month' ? 'week' : (prev === 'week' ? 'day' : 'month'));
     };
 
     return (
@@ -59,14 +59,17 @@ const Calendar = (
 
             {/* Calendar Content */}
             {view === 'month' ? (
-                <div>
-                    <MonthlyCalendar
-                        locale={locale}
-                        currentDate={currentDate}
-                    />
-                </div>
-            ) : (
+                <MonthlyCalendar
+                    locale={locale}
+                    currentDate={currentDate}
+                />
+            ) : view === 'week' ? (
                 <WeeklyCalendar
+                    locale={locale}
+                    currentDate={currentDate}
+                />
+            ) : (
+                <DailyCalendar
                     locale={locale}
                     currentDate={currentDate}
                 />
