@@ -11,9 +11,8 @@ import { DayCalendarSlotData } from '@/components/calendar/calendar-views/common
 interface HourCalendarSlotDataProps {
     date: Date;
     hour: number;
-    dateIndex: number,
     slotGatherings: Gathering[];
-    onClick: any
+    onClick: any;
 }
 
 
@@ -21,7 +20,6 @@ const HourCalendarSlotData = (
     {
         date = new Date(),
         hour = 0,
-        dateIndex = 0,
         slotGatherings = [],
         onClick = null
     }: HourCalendarSlotDataProps
@@ -31,9 +29,14 @@ const HourCalendarSlotData = (
 
     const handleTimeSlotClick = (date: Date, hour: number) => {
         if (!DatesUtilities.isPast(date)) {
+            console.log("entre a la wea");
+            console.log(date);
+            console.log(hour);
             const slotDate = new Date(date);
+            console.log(slotDate);
             slotDate.setHours(hour, 0, 0, 0);
-            onClick(date);
+            console.log(slotDate);
+            onClick(slotDate);
         }
     };
 
@@ -44,7 +47,6 @@ const HourCalendarSlotData = (
             className={cx(
                 'h-14 border-b border-[var(--ocean-50)] flex transition-colors p-1',
                 {
-                    'border-r': dateIndex < 6,
                     'calendarDateFromThePast': isPast,
                     'calendarDate cursor-pointer': !isPast
                 }

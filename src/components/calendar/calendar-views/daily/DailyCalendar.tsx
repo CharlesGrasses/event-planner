@@ -82,12 +82,11 @@ const DailyCalendar = (
                         daily={true}
                     />
 
-                    {hours.map((hour, index) => (
+                    {hours.map(hour => (
                         <div key={`${currentDate.toISOString()}-${hour}`}>
                             <HourCalendarSlotData
                                 date={currentDate}
                                 hour={hour}
-                                dateIndex={index}
                                 slotGatherings={timeSlotGatherings[getTimeSlotKey(currentDate, hour)] || []}
                                 onClick={setSelectedDateTime}
                             />
