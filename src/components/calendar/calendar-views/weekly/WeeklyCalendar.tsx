@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import APIrequests from '@/services/api-requests';
 
@@ -22,12 +22,30 @@ interface WeeklyCalendarProps {
 }
 
 
+const getTimeSlotKey = (date: Date, hour: number) => {
+    // Create UTC date for consistent keys
+    const slotDate = new Date(Date.UTC(
+        date.getUTCFullYear(),
+        date.getUTCMonth(),
+        date.getUTCDate(),
+        hour,
+        0,
+        0,
+        0
+    ));
+    return slotDate.toISOString();
+};
+
+
 const WeeklyCalendar = ({
     locale = 'en-US',
     currentDate
 }: WeeklyCalendarProps) => {
     const [selectedDateTime, setSelectedDateTime] = useState<Date | null>(null);
     const [timeSlotGatherings, setTimeSlotGatherings] = useState<TimeSlotGatherings>({});
+    
+    const displayDate = useMemo(() => new Date(currentDate.getTime()), [currentDate.getTime()]);
+    const hours = useMemo(() => Array.from({ length: 16 }, (_, i) => i + 9), []);
 
     const getWeekDates = (date: Date) => {
         const start = new Date(date);
@@ -42,37 +60,49 @@ const WeeklyCalendar = ({
         return dates;
     };
 
-    const hours = Array.from({ length: 16 }, (_, i) => i+9);
-
-    const getTimeSlotKey = (date: Date, hour: number) => {
-        const slotDate = new Date(date);
-        slotDate.setHours(hour, 0, 0, 0);
-        return slotDate.toISOString();
-    };
-
     useEffect(() => {
+        let isMounted = true;
+
         const fetchGatheringsForWeek = async () => {
             const weekDates = getWeekDates(currentDate);
             const gatheringsMap: TimeSlotGatherings = {};
 
-            const fetchPromises = weekDates.flatMap(date =>
-                hours.map(async hour => {
+            try {
+                const fetchPromises = weekDates.flatMap(date =>
+                    hours.map(async hour => {
                     const timeSlotKey = getTimeSlotKey(date, hour);
                     try {
-                        gatheringsMap[timeSlotKey] = await APIrequests.getGatheringsForTimeSlot(date, hour);
+                        const gatherings = await APIrequests.getGatheringsForTimeSlot(date, hour);
+                        if (isMounted) {
+                            gatheringsMap[timeSlotKey] = gatherings;
+                        }
                     } catch (error) {
                         console.error(`Error fetching gatherings for ${timeSlotKey}:`, error);
-                        gatheringsMap[timeSlotKey] = [];
+                        if (isMounted) {
+                            gatheringsMap[timeSlotKey] = [];
+                        }
                     }
                 })
             );
 
-            await Promise.all(fetchPromises);
-            setTimeSlotGatherings(gatheringsMap);
+                await Promise.all(fetchPromises);
+                if (isMounted) {
+                    setTimeSlotGatherings(gatheringsMap);
+                }
+            } catch (error) {
+                console.error('Error fetching gatherings:', error);
+                if (isMounted) {
+                    setTimeSlotGatherings({});
+                }
+            }
         };
 
         fetchGatheringsForWeek();
-    }, [currentDate]);
+
+        return () => {
+            isMounted = false;
+        };
+    }, [displayDate, hours]);
 
     const weekDates = getWeekDates(currentDate);
 
@@ -103,7 +133,7 @@ const WeeklyCalendar = ({
                                     hour={hour}
                                     dateIndex={dateIndex}
                                     slotGatherings={timeSlotGatherings[getTimeSlotKey(date, hour)] || []}
-                                    onClick={setSelectedDateTime}
+                                    onClick={(date: Date) => { setSelectedDateTime(date); }}
                                 />
                             </div>
                         ))}
@@ -117,12 +147,11 @@ const WeeklyCalendar = ({
                     locale={locale}
                     isOpen={!!selectedDateTime}
                     onClose={() => setSelectedDateTime(null)}
-                    selectedDate={new Date(selectedDateTime.getTime())} // Create new date instance
-                    gatherings={timeSlotGatherings[selectedDateTime.toISOString()] || []}
+                    selectedDate={selectedDateTime}
+                    gatherings={timeSlotGatherings[getTimeSlotKey(selectedDateTime, selectedDateTime.getUTCHours())] || []}
                 />
             )}
         </div>
     );
 };
-
 export default WeeklyCalendar;
