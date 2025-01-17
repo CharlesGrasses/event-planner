@@ -2,17 +2,20 @@ import React from "react";
 
 import { DatesUtilities } from "@/services/common";
 
-const USAWeekdayFormatter = new Intl.DateTimeFormat('en-US', { weekday: 'short'});
 
-const CalendarWeekdays = (
+interface MonthlyWeekdaysProps {
+    locale?:string,
+    userWeekday:string
+}
+
+
+const MonthlyCalendarWeekdays = (
     {
         locale = 'es-CL',
-        userWeekday = USAWeekdayFormatter.format(new Date(2024, 6, 1))
-    }: { 
-        locale?:string,
-        userWeekday:string
-    }
+        userWeekday = new Intl.DateTimeFormat('en-US', { weekday: 'short'}).format(new Date(2024, 6, 1))
+    }: MonthlyWeekdaysProps
 ) => {
+
     const platformTOdevice:any = DatesUtilities.userWdayComputer(locale, userWeekday);
 
     return (
@@ -31,4 +34,5 @@ const CalendarWeekdays = (
     );
 };
 
-export default CalendarWeekdays;
+
+export default MonthlyCalendarWeekdays;

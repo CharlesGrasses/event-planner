@@ -3,42 +3,32 @@
 import React, { useState, useEffect } from "react";
 import cx from "classnames";
 
-import { DatesUtilities } from "@/services/common";
 import APIrequests from "@/services/api-requests";
-import GatheringListModal from "../modal/Gatherings/GatheringListModal";
+import { DatesUtilities } from "@/services/common";
 
 import { Gathering } from "@/types/gatherings";
+
+import { CalendarSlotData } from "@/components/calendar/calendar-views/common/CalendarSlotData";
+import GatheringListModal from "@/components/modal/Gatherings/GatheringListModal";
+
+
+interface MonthlyCalendarDataProps {
+    locale:string,
+    calendarDays:any
+}
 
 interface DateGatherings {
     [key: string]: Gathering[];
 }
 
-const GatheringPreviews = ( { gatherings = [] } : { gatherings:Gathering[] } ) => {
-    if (gatherings.length === 0) return null;
 
-    return (
-        <div className="mt-1 text-xs space-y-0.5 overflow-hidden">
-            {gatherings.map((gathering, idx) => (
-                <div
-                    key={idx}
-                    className="truncate text-[var(--aqua-water-50)] px-1 py-0.5"
-                >
-                    {gathering.title}
-                </div>
-            ))}
-        </div>
-    );
-};
-
-const CalendarData = (
+const MonthlyCalendarData = (
     {
         locale = 'esCL',
         calendarDays = [new Date()]
-    } : {
-        locale:string,
-        calendarDays:any
-    }
+    } : MonthlyCalendarDataProps
 ) => {
+
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [dateGatherings, setDateGatherings] = useState<DateGatherings>({});
     const dateFormatter = new Intl.DateTimeFormat(locale, { day: 'numeric'});
@@ -107,7 +97,7 @@ const CalendarData = (
                                     }
                                 </div>
                             </div>
-                            <GatheringPreviews
+                            <CalendarSlotData
                                 gatherings={dateGatherings[getDateKey(date)]}
                             />
                         </div>
@@ -128,4 +118,4 @@ const CalendarData = (
     );
 };
 
-export default CalendarData;
+export default MonthlyCalendarData;

@@ -3,17 +3,22 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import { Assorted } from "@/services/common";
 
-const CalendarMonth = ( 
+
+interface CalendarMonthHeaderProps { 
+    locale?: string;
+    navigateMonth: any;
+    currentDate: Date;
+}
+
+
+const CalendarMonthHeader = ( 
     { 
         locale = 'es-CL',
         navigateMonth = null,
         currentDate = new Date(),
-    }: { 
-        locale?: string,
-        navigateMonth: any,
-        currentDate: Date,
-    }
+    }: CalendarMonthHeaderProps
 ) => {
+
     const MonthDateFormatter = new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' });
 
     return (
@@ -39,4 +44,4 @@ const CalendarMonth = (
     );
 };
 
-export default CalendarMonth;
+export default CalendarMonthHeader;

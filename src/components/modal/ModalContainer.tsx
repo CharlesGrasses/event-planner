@@ -1,16 +1,23 @@
+import React from 'react';
+
 import { X } from 'lucide-react';
+
+
+interface ModalProps {
+    isOpen:boolean;
+    onClose:any;
+    children:any;
+}
+
 
 const Modal = (
     {
         isOpen=false,
         onClose,
         children
-    }:{
-        isOpen:boolean,
-        onClose:any,
-        children:any
-    }
+    }:ModalProps
 ) => {
+
     if (!isOpen) return null;
 
     return (

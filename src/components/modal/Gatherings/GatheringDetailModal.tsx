@@ -1,17 +1,25 @@
-import Modal from "../ModalContainer";
+import React from 'react';
+
 import { Clock, MapPin, Users } from 'lucide-react';
+
+import Modal from "@/components/modal/ModalContainer";
+
+
+interface GatheringDetailModalProps {
+    isOpen:boolean;
+    onClose:any;
+    gathering:any;
+}
+
 
 const GatheringDetailModal = (
     {
         isOpen=false,
         onClose,
         gathering
-    }:{
-        isOpen:boolean,
-        onClose:any,
-        gathering:any
-    }
+    }: GatheringDetailModalProps
 ) => {
+
     if (!gathering) return null;
 
     return (

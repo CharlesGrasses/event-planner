@@ -1,23 +1,24 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { ViewIcon } from 'lucide-react';
+import React, { useState } from 'react';
 
-import { DatesUtilities } from '@/services/common';
+import { CalendarView } from '@/types/calendar';
 
-import CalendarMonth from './CalendarMonth';
-import CalendarWeekdays from './CalendarWeekdays';
-import CalendarData from './CalendarData';
-import WeeklyCalendar from './WeeklyCalendar';
+import CalendarHeader from '@/components/calendar/header/CalendarHeader';
+import MonthlyCalendar from '@/components/calendar/calendar-views/monthly/MonthlyCalendar';
+import WeeklyCalendar from '@/components/calendar/calendar-views/weekly/WeeklyCalendar';
 
-type CalendarView = 'month' | 'week';
 
-const Calendar = ({ locale = 'en-US' }: { locale?: string }) => {
-    const USAWeekdayFormatter = new Intl.DateTimeFormat('en-US', { weekday: 'short' });
-    const deviceTOplatform: any = DatesUtilities.computerWdayUser(
-        locale,
-        USAWeekdayFormatter.format(new Date(2024, 6, 1))
-    );
+interface CalendarProps {
+    locale: string;
+}
+
+
+const Calendar = (
+    {
+        locale = 'en-US'
+    }: CalendarProps
+) => {
 
     const [currentDate, setCurrentDate] = useState(new Date());
     const [year, setYear] = useState(currentDate.getFullYear());
@@ -28,22 +29,6 @@ const Calendar = ({ locale = 'en-US' }: { locale?: string }) => {
         setCurrentDate(date);
         setYear(date.getFullYear());
         setMonth(date.getMonth());
-    };
-
-    const getMonthData = () => {
-        const firstWeekdayMonth = deviceTOplatform[new Date(year, monthNumber, 1).getDay()].number;
-        const lastWeekdayMonth = deviceTOplatform[new Date(year, monthNumber + 1, 0).getDay()].number;
-        const daysInMonth = new Date(year, monthNumber + 1, 0).getDate();
-        const days = [];
-
-        for (let i = firstWeekdayMonth - 1; i >= 0; i--)
-            days.push(new Date(year, monthNumber, 0 - i));
-        for (let i = 1; i <= daysInMonth; i++)
-            days.push(new Date(year, monthNumber, i));
-        for (let i = lastWeekdayMonth + 1; i <= 6; i++)
-            days.push(new Date(year, monthNumber, daysInMonth + i - lastWeekdayMonth));
-
-        return days;
     };
 
     const navigateCalendar = (direction: number, chevronClick: boolean = true) => {
@@ -60,45 +45,30 @@ const Calendar = ({ locale = 'en-US' }: { locale?: string }) => {
         setView(prev => prev === 'month' ? 'week' : 'month');
     };
 
-    const [calendarDays, setCalendarDays] = useState(getMonthData());
-    useEffect(() => {
-        if (view === 'month') {
-            setCalendarDays(getMonthData());
-        }
-    }, [currentDate, year, monthNumber, view]);
-
     return (
         <div className='rounded-2xl border shadow-lg w-full max-w-screen-2xl mx-auto overflow-hidden m-4 calendarHolder'>
 
             {/* Calendar Header */}
-            <div className='flex flex-row items-center justify-between p-6 calendarHeader'>
-                <div className='flex items-center space-x-4'>
-                    <CalendarMonth
-                        locale={locale}
-                        navigateMonth={navigateCalendar}
-                        currentDate={currentDate}
-                    />
-                    <button
-                        onClick={toggleView}
-                        className='p-2 rounded-full transition-colors iconClickable ml-4'
-                        aria-label={`Switch to ${view === 'month' ? 'week' : 'month'} view`}
-                    >
-                        <ViewIcon className='h-6 w-6' color='var(--aqua-water-20)' />
-                    </button>
-                </div>
-            </div>
+            <CalendarHeader
+                locale={locale}
+                currentDate={currentDate}
+                view={view}
+                toggleView={toggleView}
+                navigateCalendar={navigateCalendar}
+            />
 
             {/* Calendar Content */}
             {view === 'month' ? (
                 <div>
-                    <CalendarWeekdays locale={locale} userWeekday={USAWeekdayFormatter.format(new Date(2024, 6, 1))} />
-                    <CalendarData locale={locale} calendarDays={calendarDays} />
+                    <MonthlyCalendar
+                        locale={locale}
+                        currentDate={currentDate}
+                    />
                 </div>
             ) : (
                 <WeeklyCalendar
                     locale={locale}
                     currentDate={currentDate}
-                    onNavigate={navigateCalendar}
                 />
             )}
         </div>

@@ -9,6 +9,16 @@ import { Assorted } from "@/services/common";
 import Modal from "@/components/modal/ModalContainer";
 import GatheringDetailModal from "@/components/modal/Gatherings/GatheringDetailModal";
 
+
+interface GatheringListModalProps {
+    locale: string;
+    isOpen: boolean;
+    onClose:any;
+    selectedDate: Date | null;
+    gatherings: any;
+}
+
+
 const GatheringListModal = (
     {
         locale = 'en-US',
@@ -16,14 +26,9 @@ const GatheringListModal = (
         onClose = null,
         selectedDate = null,
         gatherings = null 
-    } : {
-        locale: string,
-        isOpen: boolean,
-        onClose:any,
-        selectedDate: Date | null,
-        gatherings: any,
-    }
+    } : GatheringListModalProps
 ) => {
+
     const DateFormatter = Intl.DateTimeFormat(locale, {
         weekday: 'long',
         year: 'numeric',
