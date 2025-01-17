@@ -3,7 +3,7 @@ import React from "react";
 import { Gathering } from "@/types/gatherings";
 
 
-const CalendarSlotData = ( { gatherings = [] } : { gatherings:Gathering[] } ) => {
+const DayCalendarSlotData = ( { gatherings = [] } : { gatherings:Gathering[] } ) => {
     if (gatherings.length === 0) return null;
 
     return (
@@ -20,4 +20,4 @@ const CalendarSlotData = ( { gatherings = [] } : { gatherings:Gathering[] } ) =>
     );
 };
 
-export { CalendarSlotData };
+export { DayCalendarSlotData };

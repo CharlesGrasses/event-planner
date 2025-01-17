@@ -8,7 +8,7 @@ import { DatesUtilities } from "@/services/common";
 
 import { Gathering } from "@/types/gatherings";
 
-import { CalendarSlotData } from "@/components/calendar/calendar-views/common/CalendarSlotData";
+import { DayCalendarSlotData } from "@/components/calendar/calendar-views/slot-data/DayCalendarSlotData";
 import GatheringListModal from "@/components/modal/Gatherings/GatheringListModal";
 
 
@@ -92,12 +92,12 @@ const MonthlyCalendarData = (
                                 >
                                     {
                                         dateFormatter.format(date).length < 2 
-                                        ? `${dateFormatter.format(date)}\u00A0\u00A0`
+                                        ? `${dateFormatter.format(date)}\u00A0\u00A0\u00A0`
                                         : `${dateFormatter.format(date)}\u00A0`
                                     }
                                 </div>
                             </div>
-                            <CalendarSlotData
+                            <DayCalendarSlotData
                                 gatherings={dateGatherings[getDateKey(date)]}
                             />
                         </div>

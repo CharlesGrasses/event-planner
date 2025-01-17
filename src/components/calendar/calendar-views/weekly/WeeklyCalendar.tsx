@@ -82,7 +82,7 @@ const WeeklyCalendar = (
     return (
         <div>
             {/* Calendar Grid */}
-            <div className='grid grid-cols-8'>
+            <div className='grid grid-cols-[9%_13%_13%_13%_13%_13%_13%_13%]'>
                 
                 {/* Time column */}
                 <WeeklyTimeColumn

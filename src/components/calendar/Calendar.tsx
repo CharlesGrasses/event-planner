@@ -7,7 +7,7 @@ import { CalendarView } from '@/types/calendar';
 import CalendarHeader from '@/components/calendar/header/CalendarHeader';
 import MonthlyCalendar from '@/components/calendar/calendar-views/monthly/MonthlyCalendar';
 import WeeklyCalendar from '@/components/calendar/calendar-views/weekly/WeeklyCalendar';
-
+//import DailyCalendar from './calendar-views/daily/DailyCalendar';
 
 interface CalendarProps {
     locale: string;

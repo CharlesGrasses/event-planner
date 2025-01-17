@@ -8,7 +8,7 @@ import { Gathering } from '@/types/gatherings';
 import { DayCalendarSlotData } from '@/components/calendar/calendar-views/slot-data/DayCalendarSlotData';
 
 
-interface WeeklyCalendarSlotDataProps {
+interface HourCalendarSlotDataProps {
     date: Date;
     hour: number;
     dateIndex: number,
@@ -17,14 +17,14 @@ interface WeeklyCalendarSlotDataProps {
 }
 
 
-const WeeklyCalendarSlotData = (
+const HourCalendarSlotData = (
     {
         date = new Date(),
         hour = 0,
         dateIndex = 0,
         slotGatherings = [],
         onClick = null
-    }: WeeklyCalendarSlotDataProps
+    }: HourCalendarSlotDataProps
 ) => {
 
     const isPast = DatesUtilities.isPast(new Date(date.setHours(hour)));
@@ -59,4 +59,4 @@ const WeeklyCalendarSlotData = (
     );
 }
 
-export default WeeklyCalendarSlotData;
+export default HourCalendarSlotData;
