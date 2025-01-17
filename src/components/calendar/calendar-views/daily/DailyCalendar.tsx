@@ -111,7 +111,7 @@ const DailyCalendar = ({
                     locale={locale}
                     isOpen={!!selectedDateTime}
                     onClose={() => setSelectedDateTime(null)}
-                    selectedDate={selectedDateTime}
+                    selectedDate={new Date(selectedDateTime.getTime())} // Create new date instance
                     gatherings={timeSlotGatherings[selectedDateTime.toISOString()] || []}
                 />
             )}

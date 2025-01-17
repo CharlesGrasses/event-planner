@@ -19,26 +19,44 @@ interface GatheringListModalProps {
 }
 
 
-const GatheringListModal = (
-    {
-        locale = 'en-US',
-        isOpen = false,
-        onClose = null,
-        selectedDate = null,
-        gatherings = null 
-    } : GatheringListModalProps
-) => {
+const GatheringListModal = ({
+    locale = 'en-US',
+    isOpen = false,
+    onClose = null,
+    selectedDate = null,
+    gatherings = null 
+}: GatheringListModalProps) => {
+    const [selectedGathering, setSelectedGathering] = useState(null);
 
-    const DateFormatter = Intl.DateTimeFormat(locale, {
+    // Create formatter with explicit UTC timezone
+    const DateFormatter = new Intl.DateTimeFormat(locale, {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
-        day: 'numeric'
+        day: 'numeric',
+        timeZone: 'UTC'
     });
 
-    const [selectedGathering, setSelectedGathering] = useState(null);
-    const dateTitle = selectedDate ? Assorted.toUpperCaseFirstLetter(DateFormatter.format(selectedDate)) : null;
-    
+    // Format the date using UTC values
+    const formatDate = (date: Date | null) => {
+        if (!date) return null;
+        
+        // Create new UTC date to ensure consistency
+        const utcDate = new Date(Date.UTC(
+            date.getUTCFullYear(),
+            date.getUTCMonth(),
+            date.getUTCDate(),
+            date.getUTCHours(),
+            date.getUTCMinutes(),
+            0,
+            0
+        ));
+        
+        return Assorted.toUpperCaseFirstLetter(DateFormatter.format(utcDate));
+    };
+
+    const dateTitle = formatDate(selectedDate);
+
     const handleGatheringClick = (gathering: any) => {
         setSelectedGathering(gathering);
     };

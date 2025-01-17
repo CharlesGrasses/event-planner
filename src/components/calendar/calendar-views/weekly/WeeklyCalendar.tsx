@@ -22,13 +22,10 @@ interface WeeklyCalendarProps {
 }
 
 
-const WeeklyCalendar = (
-    {
-        locale = 'en-US',
-        currentDate
-    }: WeeklyCalendarProps
-) => {
-
+const WeeklyCalendar = ({
+    locale = 'en-US',
+    currentDate
+}: WeeklyCalendarProps) => {
     const [selectedDateTime, setSelectedDateTime] = useState<Date | null>(null);
     const [timeSlotGatherings, setTimeSlotGatherings] = useState<TimeSlotGatherings>({});
 
@@ -120,7 +117,7 @@ const WeeklyCalendar = (
                     locale={locale}
                     isOpen={!!selectedDateTime}
                     onClose={() => setSelectedDateTime(null)}
-                    selectedDate={selectedDateTime}
+                    selectedDate={new Date(selectedDateTime.getTime())} // Create new date instance
                     gatherings={timeSlotGatherings[selectedDateTime.toISOString()] || []}
                 />
             )}

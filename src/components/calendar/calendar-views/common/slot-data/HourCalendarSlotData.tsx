@@ -17,23 +17,38 @@ interface HourCalendarSlotDataProps {
 }
 
 
-const HourCalendarSlotData = (
-    {
-        date = new Date(),
-        hour = 0,
-        dateIndex = 6,
-        slotGatherings = [],
-        onClick = null
-    }: HourCalendarSlotDataProps
-) => {
-
-    const isPast = DatesUtilities.isPast(new Date(date.setHours(hour)));
-
+const HourCalendarSlotData = ({
+    date = new Date(),
+    hour = 0,
+    dateIndex = 6,
+    slotGatherings = [],
+    onClick = null
+}: HourCalendarSlotDataProps) => {
     const handleTimeSlotClick = (date: Date, hour: number) => {
-        const slotDate = new Date(date);
-        slotDate.setHours(hour, 0, 0, 0);
+        // Create new UTC date
+        const slotDate = new Date(Date.UTC(
+            date.getUTCFullYear(),
+            date.getUTCMonth(),
+            date.getUTCDate(),
+            hour,
+            0,
+            0,
+            0
+        ));
         onClick(slotDate);
     };
+
+    // For the isPast check, we need to consider UTC
+    const checkDate = new Date(Date.UTC(
+        date.getUTCFullYear(),
+        date.getUTCMonth(),
+        date.getUTCDate(),
+        hour,
+        0,
+        0,
+        0
+    ));
+    const isPast = DatesUtilities.isPast(checkDate);
 
     return (
         <div
@@ -49,12 +64,10 @@ const HourCalendarSlotData = (
             )}
         >
             {slotGatherings.length > 0 && (
-                <DayCalendarSlotData
-                    gatherings={slotGatherings}
-                />
+                <DayCalendarSlotData gatherings={slotGatherings} />
             )}
         </div>
     );
-}
+};
 
 export default HourCalendarSlotData;
