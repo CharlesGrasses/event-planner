@@ -55,7 +55,7 @@ const HourCalendarSlotData = ({
             key={`${date.toISOString()}-${hour}`}
             onClick={() => !isPast && handleTimeSlotClick(date, hour)}
             className={cx(
-                'h-14 border-b border-[var(--ocean-50)] flex transition-colors p-1',
+                'h-20 border-b border-[var(--ocean-50)] flex transition-colors p-1',
                 {
                     'border-r': dateIndex < 6,
                     'calendarDateFromThePast': isPast,

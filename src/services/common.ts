@@ -35,7 +35,8 @@ namespace DatesUtilities {
         translationType:string = 'deviceTOplatform',
         beginWith:string = weekdayFormatter.format(new Date(2024, 6, 0))
     ) {
-        const localeFormatter = new Intl.DateTimeFormat(locale, { weekday: 'short'});
+        const localeShortFormatter = new Intl.DateTimeFormat(locale, { weekday: 'short'});
+        const localeLongFormatter = new Intl.DateTimeFormat(locale, { weekday: 'long'});
         const weekdayNumber = getWeekdayNumber(beginWith);
         const translation:any = {};
 
@@ -45,12 +46,14 @@ namespace DatesUtilities {
             if (translationType === 'deviceTOplatform')
                 translation[date.getDay()] = {
                     number: i-1,
-                    shortName: Assorted.toUpperCaseFirstLetter(localeFormatter.format(date))
+                    shortName: Assorted.toUpperCaseFirstLetter(localeShortFormatter.format(date)),
+                    longName: Assorted.toUpperCaseFirstLetter(localeLongFormatter.format(date))
                 };
             else
                 translation[i-1] = {
                     number: date.getDay(),
-                    shortName: Assorted.toUpperCaseFirstLetter(localeFormatter.format(date))
+                    shortName: Assorted.toUpperCaseFirstLetter(localeShortFormatter.format(date)),
+                    longName: Assorted.toUpperCaseFirstLetter(localeLongFormatter.format(date))
                 };
         }
 

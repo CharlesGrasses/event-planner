@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
+
 import cx from 'classnames';
 
-import { DatesUtilities } from '@/services/common';
+import { Assorted, DatesUtilities } from '@/services/common';
 
 interface DayHeaderProps {
     locale: string,
@@ -23,43 +24,37 @@ const DayHeader = ({
     }, [date]);
     
     const computerWeekdayUser = DatesUtilities.computerWdayUser(locale);
-    const dateFormatter = new Intl.DateTimeFormat(locale, { 
-        weekday: daily ? 'long' : 'short',
-        day: 'numeric',
-        month: daily ? 'long' : undefined,
-        year: daily ? 'numeric' : undefined,
-        timeZone: 'UTC' // Force UTC to match other components
-    });
 
     return (
         <div className={cx(
-            `h-16 border-b border-[var(--ocean-50)] flex items-center justify-center`,
+            `h-16 border-b border-[var(--ocean-50)] flex items-center`,
             {
-                'flex-col': !daily
+                'flex-col justify-center': !daily
             }
         )}>
-            {!daily ? (
-                <>
-                    <div className='text-lg'>
-                        {computerWeekdayUser[displayDate.getUTCDay()].shortName}
-                    </div>
-                    <div className={cx(
-                        'rounded-full p-1',
-                        {
-                            calendarDateToday: DatesUtilities.isToday(displayDate)
-                        }
+            <div className={
+                cx(
+                    'text-[var(--aqua-water-60)]',
+                    {
+                        'text-2xl': daily,
+                        'text-lg': !daily 
+                    }
                     )}>
-                        {new Intl.DateTimeFormat(locale, { 
-                            day: 'numeric',
-                            timeZone: 'UTC'
-                        }).format(displayDate)}
-                    </div>
-                </>
-            ) : (
-                <div className='text-2xl'>
-                    {dateFormatter.format(displayDate)}
-                </div>
-            )}
+                {daily ? `${computerWeekdayUser[displayDate.getUTCDay()].longName}\u00A0` : computerWeekdayUser[displayDate.getUTCDay()].shortName}
+            </div>
+            <div className={cx(
+                'rounded-full p-1 text-[var(--aqua-water-60)]',
+                {
+                    calendarDateToday: DatesUtilities.isToday(displayDate),
+                    'text-2xl': daily,
+                    'text-lg': !daily 
+                }
+            )}>
+                {new Intl.DateTimeFormat(locale, { 
+                    day: 'numeric',
+                    timeZone: 'UTC'
+                }).format(displayDate)}
+            </div>
         </div>
     );
 };

@@ -24,17 +24,12 @@ const CalendarMonthHeader = ({
         const options: Intl.DateTimeFormatOptions = { year: 'numeric' };
         
         switch(view) {
-            case 'month':
-                options.month = 'long';
-                break;
-            case 'week':
-                options.month = 'long';
-                options.day = 'numeric';
-                break;
             case 'day':
                 options.month = 'long';
                 options.day = 'numeric';
-                options.weekday = 'long';
+                break;
+            default:
+                options.month = 'long';
                 break;
         }
         

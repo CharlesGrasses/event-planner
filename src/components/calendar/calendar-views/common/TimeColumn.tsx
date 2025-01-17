@@ -20,7 +20,7 @@ const TimeColumn = (
             {hours.map(hour => (
                 <div
                     key={hour}
-                    className='h-14 border-r border-[var(--ocean-50)] flex items-center justify-center text-[var(--aqua-water-50)]'
+                    className='h-20 border-r border-[var(--ocean-50)] flex items-center justify-center text-[var(--aqua-water-50)]'
                 >
                     {`${hour.toString().padStart(2,'0')}:00`}
                 </div>
