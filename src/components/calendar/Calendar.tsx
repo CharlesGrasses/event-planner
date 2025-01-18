@@ -38,31 +38,20 @@ const Calendar = ({
         setCurrentDate(newDate);
     };
 
-    const toggleView = () => {
-        setView((prev:any) => {
-            switch(prev) {
-                case 'month':
-                    return 'week';
-                case 'week':
-                    return 'day';
-                default:
-                    return 'month';
-            }
-        });
+    const setCalendarView = (newView: CalendarView) => {
+        setView(newView);
     };
 
     return (
         <div className='rounded-2xl border shadow-lg w-full max-w-screen-2xl mx-auto overflow-hidden m-4 calendarHolder'>
-            {/* Calendar Header */}
             <CalendarHeader
                 locale={locale}
                 currentDate={currentDate}
                 view={view}
-                toggleView={toggleView}
+                toggleView={setCalendarView}
                 navigateCalendar={navigateCalendar}
             />
 
-            {/* Calendar Content */}
             {view === 'month' ? (
                 <MonthlyCalendar
                     locale={locale}
