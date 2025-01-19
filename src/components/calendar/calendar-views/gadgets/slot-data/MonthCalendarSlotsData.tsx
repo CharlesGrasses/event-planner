@@ -8,7 +8,7 @@ import { DatesUtilities } from "@/services/common";
 
 import { Gathering } from "@/types/gatherings";
 
-import { DayCalendarSlotData } from "@/components/calendar/calendar-views/common/slot-data/DayCalendarSlotData";
+import { DayCalendarSlotData } from "@/components/calendar/calendar-views/gadgets/slot-data/DayCalendarSlotData";
 import GatheringListModal from "@/components/modal/Gatherings/GatheringListModal";
 
 

@@ -7,9 +7,9 @@ import APIrequests from '@/services/api-requests';
 import { Gathering } from '@/types/gatherings';
 
 import GatheringListModal from '@/components/modal/Gatherings/GatheringListModal';
-import HourCalendarSlotData from '@/components/calendar/calendar-views/common/slot-data/HourCalendarSlotData';
-import DayHeader from '@/components/calendar/calendar-views/common/DayHeader';
-import TimeColumn from '@/components/calendar/calendar-views/common/TimeColumn';
+import HourCalendarSlotData from '@/components/calendar/calendar-views/gadgets/slot-data/HourCalendarSlotData';
+import DayHeader from '@/components/calendar/calendar-views/gadgets/DayHeader';
+import TimeColumn from '@/components/calendar/calendar-views/gadgets/TimeColumn';
 
 interface TimeSlotGatherings {
     [key: string]: Gathering[];

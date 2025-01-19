@@ -5,9 +5,9 @@ import React, { useState } from 'react';
 import { CalendarView } from '@/types/calendar';
 
 import CalendarHeader from '@/components/calendar/header/CalendarHeader';
-import MonthlyCalendar from '@/components/calendar/calendar-views/monthly/MonthlyCalendar';
-import WeeklyCalendar from '@/components/calendar/calendar-views/weekly/WeeklyCalendar';
-import DailyCalendar from './calendar-views/daily/DailyCalendar';
+import MonthlyCalendar from '@/components/calendar/calendar-views/MonthlyCalendar';
+import WeeklyCalendar from '@/components/calendar/calendar-views/WeeklyCalendar';
+import DailyCalendar from '@/components/calendar/calendar-views/DailyCalendar';
 
 interface CalendarProps {
     locale: string;

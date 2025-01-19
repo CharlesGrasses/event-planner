@@ -1,5 +1,3 @@
-
-
 namespace Assorted {
     export function toUpperCaseFirstLetter (anyString: string) {
         return String(anyString).charAt(0).toUpperCase() + String(anyString).slice(1);

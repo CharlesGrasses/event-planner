@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import cx from 'classnames';
 
-import { Assorted, DatesUtilities } from '@/services/common';
+import { DatesUtilities } from '@/services/common';
 
 interface DayHeaderProps {
     locale: string,

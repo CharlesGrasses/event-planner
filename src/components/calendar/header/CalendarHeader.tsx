@@ -1,7 +1,7 @@
 import React from 'react';
 import { CalendarView } from '@/types/calendar';
 import CalendarMonthHeader from '@/components/calendar/header/CalendarMonthHeader';
-import ViewSwitcher from './ViewSwitcher';
+import ViewSwitcher from '@/components/calendar/header/ViewSwitcher';
 
 interface CalendarHeaderProps {
     locale: string;

@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
+
 import { ViewIcon, Calendar as CalendarIcon, Clock as ClockIcon, LayoutIcon } from 'lucide-react';
+
 import { CalendarView } from '@/types/calendar';
 
 interface ViewSwitcherProps {
     currentView: CalendarView;
     onViewChange: (view: CalendarView) => void;
 }
+
 
 const ViewSwitcher = ({ currentView, onViewChange }: ViewSwitcherProps) => {
     const [isOpen, setIsOpen] = useState(false);

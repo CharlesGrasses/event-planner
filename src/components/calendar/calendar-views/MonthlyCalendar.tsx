@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 
 import { DatesUtilities } from '@/services/common';
 
-import MonthlyCalendarData from '@/components/calendar/calendar-views/monthly/MonthlyCalendarData';
-import MonthlyCalendarWeekdays from '@/components/calendar/calendar-views/monthly/MonthlyCalendarWeekdays';
+import MonthlyCalendarData from '@/components/calendar/calendar-views/gadgets/slot-data/MonthCalendarSlotsData';
+import MonthlyCalendarWeekdays from '@/components/calendar/calendar-views/gadgets/WeekdaysHeaderRow';
 
 
 interface MonthlyCalendarProps {
