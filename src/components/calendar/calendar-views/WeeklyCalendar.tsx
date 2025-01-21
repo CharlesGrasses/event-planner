@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 
-import APIrequests from '@/services/api-requests';
-
-import { Gathering } from '@/types/gatherings';
+import { APIrequests, DatesUtilities } from '@/services';
+import { MONDAY_SHORT } from '@/constants';
+import { Gathering } from '@/types';
 
 import GatheringListModal from '@/components/modal/Gatherings/GatheringListModal';
 import HourCalendarSlotData from '@/components/calendar/calendar-views/gadgets/slot-data/HourCalendarSlotData';
@@ -22,21 +22,6 @@ interface WeeklyCalendarProps {
 }
 
 
-const getTimeSlotKey = (date: Date, hour: number) => {
-    // Create UTC date for consistent keys
-    const slotDate = new Date(Date.UTC(
-        date.getUTCFullYear(),
-        date.getUTCMonth(),
-        date.getUTCDate(),
-        hour,
-        0,
-        0,
-        0
-    ));
-    return slotDate.toISOString();
-};
-
-
 const WeeklyCalendar = ({
     locale = 'en-US',
     currentDate
@@ -44,18 +29,24 @@ const WeeklyCalendar = ({
     const [selectedDateTime, setSelectedDateTime] = useState<Date | null>(null);
     const [timeSlotGatherings, setTimeSlotGatherings] = useState<TimeSlotGatherings>({});
     
-    const displayDate = useMemo(() => new Date(currentDate.getTime()), [currentDate.getTime()]);
+    const displayDate = useMemo(() => DatesUtilities.copyDate(currentDate), [currentDate.getTime()]);
     const hours = useMemo(() => Array.from({ length: 16 }, (_, i) => i + 9), []);
 
+    const deviceTOplatform: any = DatesUtilities.computerWdayUser(
+        locale,
+        MONDAY_SHORT
+    );
+
     const getWeekDates = (date: Date) => {
-        const start = new Date(date);
-        start.setDate(date.getDate() - date.getDay() + (locale.startsWith('en') ? 0 : 1));
+        const year = currentDate.getFullYear();
+        const monthNumber = currentDate.getMonth();
+
+        const startDate = date.getDate() - deviceTOplatform[date.getDay()].number + DatesUtilities.getFirstWeekday(locale);
         
         const dates = [];
+
         for (let i = 0; i < 7; i++) {
-            const day = new Date(start);
-            day.setDate(start.getDate() + i);
-            dates.push(day);
+            dates.push(new Date(year, monthNumber, startDate+i));
         }
         return dates;
     };
@@ -70,7 +61,7 @@ const WeeklyCalendar = ({
             try {
                 const fetchPromises = weekDates.flatMap(date =>
                     hours.map(async hour => {
-                    const timeSlotKey = getTimeSlotKey(date, hour);
+                    const timeSlotKey = DatesUtilities.getTimeSlotKey(date, hour);
                     try {
                         const gatherings = await APIrequests.getGatheringsForTimeSlot(date, hour);
                         if (isMounted) {
@@ -132,7 +123,7 @@ const WeeklyCalendar = ({
                                     date={date}
                                     hour={hour}
                                     dateIndex={dateIndex}
-                                    slotGatherings={timeSlotGatherings[getTimeSlotKey(date, hour)] || []}
+                                    slotGatherings={timeSlotGatherings[DatesUtilities.getTimeSlotKey(date, hour)] || []}
                                     onClick={(date: Date) => { setSelectedDateTime(date); }}
                                 />
                             </div>
@@ -148,7 +139,7 @@ const WeeklyCalendar = ({
                     isOpen={!!selectedDateTime}
                     onClose={() => setSelectedDateTime(null)}
                     selectedDate={selectedDateTime}
-                    gatherings={timeSlotGatherings[getTimeSlotKey(selectedDateTime, selectedDateTime.getUTCHours())] || []}
+                    gatherings={timeSlotGatherings[DatesUtilities.getTimeSlotKey(selectedDateTime, selectedDateTime.getUTCHours())] || []}
                 />
             )}
         </div>

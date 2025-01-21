@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Gathering } from "@/types/gatherings";
+import { Gathering } from "@/types";
 
 
 const DayCalendarSlotData = ( { gatherings = [] } : { gatherings:Gathering[] } ) => {

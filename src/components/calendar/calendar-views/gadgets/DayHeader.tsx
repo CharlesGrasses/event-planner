@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import cx from 'classnames';
 
-import { DatesUtilities } from '@/services/common';
+import { DatesUtilities } from '@/services';
 
 interface DayHeaderProps {
     locale: string,
@@ -15,13 +15,8 @@ const DayHeader = ({
     date,
     daily = false
 }: DayHeaderProps) => {
-    // Create a stable date reference preserving the original time
-    const displayDate = useMemo(() => {
-        const newDate = new Date(date);
-        // Ensure we're working with the date in local time
-        newDate.setHours(date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds());
-        return newDate;
-    }, [date]);
+
+    const displayDate = useMemo(() => DatesUtilities.copyDate(date), [date.getTime()]);
     
     const computerWeekdayUser = DatesUtilities.computerWdayUser(locale);
 
@@ -37,10 +32,10 @@ const DayHeader = ({
                     'text-[var(--aqua-water-60)]',
                     {
                         'text-2xl': daily,
-                        'text-lg': !daily 
+                        'text-lg': !daily
                     }
                     )}>
-                {daily ? `${computerWeekdayUser[displayDate.getUTCDay()].longName}\u00A0` : computerWeekdayUser[displayDate.getUTCDay()].shortName}
+                {daily ? `${computerWeekdayUser[displayDate.getDay()].longName}\u00A0` : computerWeekdayUser[displayDate.getDay()].shortName}
             </div>
             <div className={cx(
                 'rounded-full p-1 text-[var(--aqua-water-60)]',
@@ -51,8 +46,7 @@ const DayHeader = ({
                 }
             )}>
                 {new Intl.DateTimeFormat(locale, { 
-                    day: 'numeric',
-                    timeZone: 'UTC'
+                    day: 'numeric'
                 }).format(displayDate)}
             </div>
         </div>

@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 
-import APIrequests from '@/services/api-requests';
+import { APIrequests, DatesUtilities } from '@/services';
 
-import { Gathering } from '@/types/gatherings';
+import { Gathering } from '@/types';
 
 import GatheringListModal from '@/components/modal/Gatherings/GatheringListModal';
 import HourCalendarSlotData from '@/components/calendar/calendar-views/gadgets/slot-data/HourCalendarSlotData';
@@ -21,21 +21,6 @@ interface DailyCalendarProps {
 }
 
 
-const getTimeSlotKey = (date: Date, hour: number) => {
-    // Create UTC date for consistent keys
-    const slotDate = new Date(Date.UTC(
-        date.getUTCFullYear(),
-        date.getUTCMonth(),
-        date.getUTCDate(),
-        hour,
-        0,
-        0,
-        0
-    ));
-    return slotDate.toISOString();
-};
-
-
 const DailyCalendar = ({
     locale = 'en-US',
     currentDate
@@ -43,7 +28,7 @@ const DailyCalendar = ({
     const [selectedDateTime, setSelectedDateTime] = useState<Date | null>(null);
     const [timeSlotGatherings, setTimeSlotGatherings] = useState<TimeSlotGatherings>({});
     
-    const displayDate = useMemo(() => new Date(currentDate.getTime()), [currentDate.getTime()]);
+    const displayDate = useMemo(() => DatesUtilities.copyDate(currentDate), [currentDate.getTime()]);
     const hours = useMemo(() => Array.from({ length: 16 }, (_, i) => i + 9), []);
 
     useEffect(() => {
@@ -54,7 +39,7 @@ const DailyCalendar = ({
 
             try {
                 const fetchPromises = hours.map(async hour => {
-                    const timeSlotKey = getTimeSlotKey(displayDate, hour);
+                    const timeSlotKey = DatesUtilities.getTimeSlotKey(displayDate, hour);
                     try {
                         const gatherings = await APIrequests.getGatheringsForTimeSlot(displayDate, hour);
                         if (isMounted) {
@@ -108,7 +93,7 @@ const DailyCalendar = ({
                                 date={displayDate}
                                 hour={hour}
                                 dateIndex={6}
-                                slotGatherings={timeSlotGatherings[getTimeSlotKey(displayDate, hour)] || []}
+                                slotGatherings={timeSlotGatherings[DatesUtilities.getTimeSlotKey(displayDate, hour)] || []}
                                 onClick={(date: Date) => { setSelectedDateTime(date); }}
                             />
                         </div>
@@ -123,7 +108,7 @@ const DailyCalendar = ({
                     isOpen={!!selectedDateTime}
                     onClose={() => setSelectedDateTime(null)}
                     selectedDate={selectedDateTime}
-                    gatherings={timeSlotGatherings[getTimeSlotKey(selectedDateTime, selectedDateTime.getUTCHours())] || []}
+                    gatherings={timeSlotGatherings[DatesUtilities.getTimeSlotKey(selectedDateTime, selectedDateTime.getUTCHours())] || []}
                 />
             )}
         </div>

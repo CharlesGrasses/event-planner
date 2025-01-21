@@ -1,8 +1,10 @@
 import React from "react";
+
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-import { Assorted } from "@/services/common";
-import { CalendarView } from "@/types/calendar";
+import { DatesUtilities, TextUtilities } from "@/services";
+
+import { CalendarView } from "@/types";
 
 interface CalendarMonthHeaderProps { 
     locale?: string;
@@ -18,7 +20,7 @@ const CalendarMonthHeader = ({
     view = 'month'
 }: CalendarMonthHeaderProps) => {
     // Create a stable date reference
-    const displayDate = new Date(currentDate.getTime());
+    const displayDate = DatesUtilities.copyDate(currentDate);
     
     const getDateFormat = () => {
         const options: Intl.DateTimeFormatOptions = { year: 'numeric' };
@@ -39,7 +41,7 @@ const CalendarMonthHeader = ({
     return (
         <div className='flex flex-row items-center'>
             <h3 className='text-2xl font-bold calendarTitle'>
-                {Assorted.toUpperCaseFirstLetter(getDateFormat().format(displayDate))}
+                {TextUtilities.toUpperCaseFirstLetter(getDateFormat().format(displayDate))}
             </h3>
             <div className='flex items-center space-x-4 ml-4'>
                 <button

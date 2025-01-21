@@ -1,9 +1,9 @@
 import React from 'react';
 import cx from 'classnames';
 
-import { DatesUtilities } from "@/services/common";
+import { DatesUtilities } from "@/services";
 
-import { Gathering } from '@/types/gatherings';
+import { Gathering } from '@/types';
 
 import { DayCalendarSlotData } from '@/components/calendar/calendar-views/gadgets/slot-data/DayCalendarSlotData';
 
@@ -25,29 +25,11 @@ const HourCalendarSlotData = ({
     onClick = null
 }: HourCalendarSlotDataProps) => {
     const handleTimeSlotClick = (date: Date, hour: number) => {
-        // Create new UTC date
-        const slotDate = new Date(Date.UTC(
-            date.getUTCFullYear(),
-            date.getUTCMonth(),
-            date.getUTCDate(),
-            hour,
-            0,
-            0,
-            0
-        ));
+        const slotDate = DatesUtilities.copyDateSetHour(date, hour);
         onClick(slotDate);
     };
 
-    // For the isPast check, we need to consider UTC
-    const checkDate = new Date(Date.UTC(
-        date.getUTCFullYear(),
-        date.getUTCMonth(),
-        date.getUTCDate(),
-        hour,
-        0,
-        0,
-        0
-    ));
+    const checkDate = DatesUtilities.copyDateSetHour(date, hour);
     const isPast = DatesUtilities.isPast(checkDate);
 
     return (

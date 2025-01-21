@@ -1,5 +1,7 @@
 import React from 'react';
-import { CalendarView } from '@/types/calendar';
+
+import { CalendarView } from '@/types';
+
 import CalendarMonthHeader from '@/components/calendar/header/CalendarMonthHeader';
 import ViewSwitcher from '@/components/calendar/header/ViewSwitcher';
 

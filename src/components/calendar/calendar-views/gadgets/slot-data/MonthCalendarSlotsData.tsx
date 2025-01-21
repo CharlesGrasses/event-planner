@@ -3,10 +3,9 @@
 import React, { useState, useEffect } from "react";
 import cx from "classnames";
 
-import APIrequests from "@/services/api-requests";
-import { DatesUtilities } from "@/services/common";
+import { APIrequests, DatesUtilities } from "@/services";
 
-import { Gathering } from "@/types/gatherings";
+import { Gathering } from "@/types";
 
 import { DayCalendarSlotData } from "@/components/calendar/calendar-views/gadgets/slot-data/DayCalendarSlotData";
 import GatheringListModal from "@/components/modal/Gatherings/GatheringListModal";

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 import { Clock } from "lucide-react";
 
-import { Assorted } from "@/services/common";
+import { DatesUtilities, TextUtilities } from "@/services";
 
 import Modal from "@/components/modal/ModalContainer";
 import GatheringDetailModal from "@/components/modal/Gatherings/GatheringDetailModal";
@@ -42,17 +42,8 @@ const GatheringListModal = ({
         if (!date) return null;
         
         // Create new UTC date to ensure consistency
-        const utcDate = new Date(Date.UTC(
-            date.getUTCFullYear(),
-            date.getUTCMonth(),
-            date.getUTCDate(),
-            date.getUTCHours(),
-            date.getUTCMinutes(),
-            0,
-            0
-        ));
-        
-        return Assorted.toUpperCaseFirstLetter(DateFormatter.format(utcDate));
+        const utcDate = DatesUtilities.copyDate(date);
+        return TextUtilities.toUpperCaseFirstLetter(DateFormatter.format(utcDate));
     };
 
     const dateTitle = formatDate(selectedDate);

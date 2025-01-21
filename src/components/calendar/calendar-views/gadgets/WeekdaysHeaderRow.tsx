@@ -1,6 +1,8 @@
 import React from "react";
 
-import { DatesUtilities } from "@/services/common";
+import { MONDAY_SHORT } from "@/constants";
+
+import { DatesUtilities } from "@/services";
 
 
 interface MonthlyWeekdaysProps {
@@ -12,7 +14,7 @@ interface MonthlyWeekdaysProps {
 const MonthlyCalendarWeekdays = (
     {
         locale = 'es-CL',
-        userWeekday = new Intl.DateTimeFormat('en-US', { weekday: 'short'}).format(new Date(2024, 6, 1))
+        userWeekday = MONDAY_SHORT
     }: MonthlyWeekdaysProps
 ) => {
 

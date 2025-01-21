@@ -2,7 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 
-import { DatesUtilities } from '@/services/common';
+import { DatesUtilities } from '@/services';
+
+import { MONDAY_SHORT } from '@/constants';
 
 import MonthlyCalendarData from '@/components/calendar/calendar-views/gadgets/slot-data/MonthCalendarSlotsData';
 import MonthlyCalendarWeekdays from '@/components/calendar/calendar-views/gadgets/WeekdaysHeaderRow';
@@ -21,16 +23,15 @@ const MonthlyCalendar = (
     }: MonthlyCalendarProps
 ) => {
 
-    const year = currentDate.getFullYear();
-    const monthNumber = currentDate.getMonth();
-
-    const USAWeekdayFormatter = new Intl.DateTimeFormat('en-US', { weekday: 'short' });
     const deviceTOplatform: any = DatesUtilities.computerWdayUser(
         locale,
-        USAWeekdayFormatter.format(new Date(2024, 6, 1))
+        MONDAY_SHORT
     );
 
     const getMonthData = () => {
+        const year = currentDate.getFullYear();
+        const monthNumber = currentDate.getMonth();
+
         const firstWeekdayMonth = deviceTOplatform[new Date(year, monthNumber, 1).getDay()].number;
         const lastWeekdayMonth = deviceTOplatform[new Date(year, monthNumber + 1, 0).getDay()].number;
         const daysInMonth = new Date(year, monthNumber + 1, 0).getDate();
@@ -49,13 +50,13 @@ const MonthlyCalendar = (
     const [calendarDays, setCalendarDays] = useState(getMonthData());
     useEffect(() => {
         setCalendarDays(getMonthData());
-    }, [currentDate, year, monthNumber]);
+    }, [currentDate]);
 
     return (
         <div>
             <MonthlyCalendarWeekdays
                 locale={locale}
-                userWeekday={USAWeekdayFormatter.format(new Date(2024, 6, 1))}
+                userWeekday={MONDAY_SHORT}
             />
             <MonthlyCalendarData
                 locale={locale}

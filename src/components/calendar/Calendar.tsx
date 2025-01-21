@@ -2,7 +2,9 @@
 
 import React, { useState } from 'react';
 
-import { CalendarView } from '@/types/calendar';
+import { CalendarView } from '@/types';
+
+import { DatesUtilities } from '@/services';
 
 import CalendarHeader from '@/components/calendar/header/CalendarHeader';
 import MonthlyCalendar from '@/components/calendar/calendar-views/MonthlyCalendar';
@@ -21,17 +23,17 @@ const Calendar = ({
     const [view, setView] = useState<CalendarView>('month');
 
     const navigateCalendar = (direction: number, chevronClick: boolean = true) => {
-        const newDate = new Date(currentDate);
+        const newDate = DatesUtilities.copyDate(currentDate);
         
         switch(view) {
             case 'month':
-                newDate.setMonth(currentDate.getMonth() + direction);
+                newDate.setUTCMonth(currentDate.getUTCMonth() + direction);
                 break;
             case 'week':
-                newDate.setDate(currentDate.getDate() + (direction * 7));
+                newDate.setUTCDate(currentDate.getUTCDate() + (direction * 7));
                 break;
             case 'day':
-                newDate.setDate(currentDate.getDate() + direction);
+                newDate.setUTCDate(currentDate.getUTCDate() + direction);
                 break;
         }
         

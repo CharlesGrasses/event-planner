@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import { ViewIcon, Calendar as CalendarIcon, Clock as ClockIcon, LayoutIcon } from 'lucide-react';
 
-import { CalendarView } from '@/types/calendar';
+import { CalendarView } from '@/types';
 
 interface ViewSwitcherProps {
     currentView: CalendarView;
