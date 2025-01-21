@@ -37,6 +37,13 @@ const Calendar = ({
         setCurrentDate(newDate);
     };
 
+    const handleMonthlyClick = (date: Date) => {
+        if (!DatesUtilities.isPastDay(date)) {
+            setCalendarView('day');
+            setCurrentDate(date);
+        }
+    }
+
     const setCalendarView = (newView: CalendarView) => {
         setView(newView);
     };
@@ -55,6 +62,7 @@ const Calendar = ({
                 <MonthlyCalendar
                     locale={locale}
                     currentDate={currentDate}
+                    handleDateClick={handleMonthlyClick}
                 />
             ) : view === 'week' ? (
                 <WeeklyCalendar

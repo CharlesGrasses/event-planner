@@ -13,7 +13,8 @@ import { GatheringListModal } from "@/components/modal";
 
 interface MonthlyCalendarSlotsDataProps {
     locale:string,
-    calendarDays:any
+    calendarDays:any,
+    handleDateClick: (date:Date) => void
 }
 
 interface DateGatherings {
@@ -24,11 +25,11 @@ interface DateGatherings {
 const MonthlyCalendarSlotsData = (
     {
         locale = 'esCL',
-        calendarDays = [new Date()]
+        calendarDays = [new Date()],
+        handleDateClick
     } : MonthlyCalendarSlotsDataProps
 ) => {
 
-    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [dateGatherings, setDateGatherings] = useState<DateGatherings>({});
     const dateFormatter = new Intl.DateTimeFormat(locale, { day: 'numeric'});
 
@@ -55,12 +56,6 @@ const MonthlyCalendarSlotsData = (
 
         fetchGatheringsForAllDates();
     }, [calendarDays]);
-
-    const handleDateClick = (date: Date) => {
-        if (!DatesUtilities.isPastDay(date)) {
-            setSelectedDate(date);
-        }
-    };
 
     return(
         <>
@@ -103,15 +98,6 @@ const MonthlyCalendarSlotsData = (
                     ))
                 }
             </div>
-
-            <GatheringListModal
-                locale={locale}
-                isOpen={!!selectedDate}
-                onClose={() => setSelectedDate(null)}
-                selectedDate={selectedDate}
-                gatherings={selectedDate ? dateGatherings[getDateKey(selectedDate)] : []}
-
-            />
         </>
 
     );

@@ -12,6 +12,7 @@ import { MonthlyCalendarSlotsData, MonthlyCalendarRow } from '@/components/calen
 interface MonthlyCalendarProps {
     locale:string,
     currentDate:Date
+    handleDateClick: (date: Date) => void,
 }
 
 
@@ -19,6 +20,7 @@ const MonthlyCalendar = (
     {
         locale = 'en-US',
         currentDate = new Date(),
+        handleDateClick
     }: MonthlyCalendarProps
 ) => {
 
@@ -44,7 +46,7 @@ const MonthlyCalendar = (
             days.push(new Date(year, monthNumber, daysInMonth + i - lastWeekdayMonth));
 
         return days;
-    };
+    }; 
 
     const [calendarDays, setCalendarDays] = useState(getMonthData());
     useEffect(() => {
@@ -60,6 +62,7 @@ const MonthlyCalendar = (
             <MonthlyCalendarSlotsData
                 locale={locale}
                 calendarDays={calendarDays}
+                handleDateClick={handleDateClick}
             />
         </div>
     );
