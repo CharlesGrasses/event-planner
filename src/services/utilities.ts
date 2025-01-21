@@ -43,12 +43,12 @@ namespace DatesUtilities {
 
             if (translationType === 'deviceTOplatform')
                 translation[date.getDay()] = {
-                    number: i-1,
+                    number: i-weekdayNumber,
                     shortName: TextUtilities.toUpperCaseFirstLetter(localeShortFormatter.format(date)),
                     longName: TextUtilities.toUpperCaseFirstLetter(localeLongFormatter.format(date))
                 };
             else
-                translation[i-1] = {
+                translation[i-weekdayNumber] = {
                     number: date.getDay(),
                     shortName: TextUtilities.toUpperCaseFirstLetter(localeShortFormatter.format(date)),
                     longName: TextUtilities.toUpperCaseFirstLetter(localeLongFormatter.format(date))
@@ -78,8 +78,9 @@ namespace DatesUtilities {
     }
 
     export function isPast (date: Date) {
-        const today = new Date().setHours(0, 0, 0, 0);
-        return date.getTime() < today;
+        const today = new Date();
+        today.setHours(today.getHours(), 0, 0, 0);
+        return date.getTime() < today.getTime();
     }
 
     export function copyDate(date: Date) {
