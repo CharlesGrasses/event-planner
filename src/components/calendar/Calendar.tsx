@@ -6,10 +6,7 @@ import { CalendarView } from '@/types';
 
 import { DatesUtilities } from '@/services';
 
-import CalendarHeader from '@/components/calendar/header/CalendarHeader';
-import MonthlyCalendar from '@/components/calendar/calendar-views/MonthlyCalendar';
-import WeeklyCalendar from '@/components/calendar/calendar-views/WeeklyCalendar';
-import DailyCalendar from '@/components/calendar/calendar-views/DailyCalendar';
+import { CalendarHeader, MonthlyCalendar, WeeklyCalendar, DailyCalendar } from '@/components/calendar';
 
 interface CalendarProps {
     locale: string;
@@ -74,4 +71,4 @@ const Calendar = ({
     );
 };
 
-export default Calendar;
+export { Calendar };

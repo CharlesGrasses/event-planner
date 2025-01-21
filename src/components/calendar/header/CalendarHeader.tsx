@@ -2,8 +2,7 @@ import React from 'react';
 
 import { CalendarView } from '@/types';
 
-import CalendarMonthHeader from '@/components/calendar/header/CalendarMonthHeader';
-import ViewSwitcher from '@/components/calendar/header/ViewSwitcher';
+import { CalendarMonthHeader, ViewSwitcher } from '@/components/calendar';
 
 interface CalendarHeaderProps {
     locale: string;
@@ -38,4 +37,4 @@ const CalendarHeader = ({
     );
 };
 
-export default CalendarHeader;
+export { CalendarHeader };

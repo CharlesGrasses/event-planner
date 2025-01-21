@@ -61,4 +61,4 @@ const CalendarMonthHeader = ({
     );
 };
 
-export default CalendarMonthHeader;
+export { CalendarMonthHeader };

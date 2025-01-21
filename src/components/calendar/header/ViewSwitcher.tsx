@@ -76,4 +76,4 @@ const ViewSwitcher = ({ currentView, onViewChange }: ViewSwitcherProps) => {
     );
 };
 
-export default ViewSwitcher;
+export { ViewSwitcher };

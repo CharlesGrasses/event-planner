@@ -6,10 +6,8 @@ import { APIrequests, DatesUtilities } from '@/services';
 
 import { Gathering } from '@/types';
 
-import GatheringListModal from '@/components/modal/Gatherings/GatheringListModal';
-import HourCalendarSlotData from '@/components/calendar/calendar-views/gadgets/slot-data/HourCalendarSlotData';
-import DayHeader from '@/components/calendar/calendar-views/gadgets/DayHeader';
-import TimeColumn from '@/components/calendar/calendar-views/gadgets/TimeColumn';
+import { GatheringListModal } from '@/components/modal';
+import { DayHeader, HourCalendarSlotData, TimeColumn } from '@/components/calendar';
 
 interface TimeSlotGatherings {
     [key: string]: Gathering[];
@@ -115,4 +113,4 @@ const DailyCalendar = ({
     );
 };
 
-export default DailyCalendar;
+export { DailyCalendar };

@@ -5,7 +5,7 @@ import { DatesUtilities } from "@/services";
 
 import { Gathering } from '@/types';
 
-import { DayCalendarSlotData } from '@/components/calendar/calendar-views/gadgets/slot-data/DayCalendarSlotData';
+import { DayCalendarSlotData } from '@/components/calendar';
 
 
 interface HourCalendarSlotDataProps {
@@ -52,4 +52,4 @@ const HourCalendarSlotData = ({
     );
 };
 
-export default HourCalendarSlotData;
+export { HourCalendarSlotData };

@@ -53,4 +53,4 @@ const DayHeader = ({
     );
 };
 
-export default DayHeader;
+export { DayHeader };

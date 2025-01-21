@@ -29,4 +29,4 @@ const TimeColumn = (
     );
 };
 
-export default TimeColumn;
+export { TimeColumn };

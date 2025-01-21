@@ -6,8 +6,7 @@ import { DatesUtilities } from '@/services';
 
 import { MONDAY_SHORT } from '@/constants';
 
-import MonthlyCalendarData from '@/components/calendar/calendar-views/gadgets/slot-data/MonthCalendarSlotsData';
-import MonthlyCalendarWeekdays from '@/components/calendar/calendar-views/gadgets/WeekdaysHeaderRow';
+import { MonthlyCalendarData, MonthlyCalendarWeekdays } from '@/components/calendar';
 
 
 interface MonthlyCalendarProps {
@@ -66,4 +65,4 @@ const MonthlyCalendar = (
     );
 };
 
-export default MonthlyCalendar;
+export { MonthlyCalendar };

@@ -37,4 +37,4 @@ const MonthlyCalendarWeekdays = (
 };
 
 
-export default MonthlyCalendarWeekdays;
+export { MonthlyCalendarWeekdays };

@@ -10,7 +10,7 @@ interface ModalProps {
 }
 
 
-const Modal = (
+const ModalFrame = (
     {
         isOpen=false,
         onClose,
@@ -36,4 +36,4 @@ const Modal = (
     );
 };
 
-export default Modal;
+export { ModalFrame };

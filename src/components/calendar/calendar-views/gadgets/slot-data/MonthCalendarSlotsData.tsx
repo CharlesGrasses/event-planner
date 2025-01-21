@@ -7,8 +7,8 @@ import { APIrequests, DatesUtilities } from "@/services";
 
 import { Gathering } from "@/types";
 
-import { DayCalendarSlotData } from "@/components/calendar/calendar-views/gadgets/slot-data/DayCalendarSlotData";
-import GatheringListModal from "@/components/modal/Gatherings/GatheringListModal";
+import { DayCalendarSlotData } from "@/components/calendar";
+import { GatheringListModal } from "@/components/modal";
 
 
 interface MonthlyCalendarDataProps {
@@ -117,4 +117,4 @@ const MonthlyCalendarData = (
     );
 };
 
-export default MonthlyCalendarData;
+export { MonthlyCalendarData };

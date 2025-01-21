@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Clock, MapPin, Users } from 'lucide-react';
 
-import Modal from "@/components/modal/ModalContainer";
+import { ModalFrame } from '@/components/modal';
 
 
 interface GatheringDetailModalProps {
@@ -23,7 +23,7 @@ const GatheringDetailModal = (
     if (!gathering) return null;
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalFrame isOpen={isOpen} onClose={onClose}>
             <div className='p-6'>
                 {gathering.image && (
                     <div className='w-full h-48 mb-4 rounded-lg overflow-hidden'>
@@ -56,8 +56,8 @@ const GatheringDetailModal = (
                     <p className='text-[var(--aqua-water-60)]'>{gathering.description}</p>
                 </div>
             </div>
-        </Modal>
+        </ModalFrame>
     );
 };
 
-export default GatheringDetailModal;
+export { GatheringDetailModal };

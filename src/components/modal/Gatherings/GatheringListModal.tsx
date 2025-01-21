@@ -6,8 +6,7 @@ import { Clock } from "lucide-react";
 
 import { DatesUtilities, TextUtilities } from "@/services";
 
-import Modal from "@/components/modal/ModalContainer";
-import GatheringDetailModal from "@/components/modal/Gatherings/GatheringDetailModal";
+import { GatheringDetailModal, ModalFrame } from '@/components/modal';
 
 
 interface GatheringListModalProps {
@@ -54,7 +53,7 @@ const GatheringListModal = ({
 
     return (
         <>
-            <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalFrame isOpen={isOpen} onClose={onClose}>
                 <div className='p-6'>
                     <h2 className='text-2xl font-bold mb-4 titleText'>
                         {dateTitle}
@@ -91,7 +90,7 @@ const GatheringListModal = ({
                         )}
                     </div>
                 </div>
-            </Modal>
+            </ModalFrame>
 
             <GatheringDetailModal
                 isOpen={!!selectedGathering}
@@ -102,4 +101,4 @@ const GatheringListModal = ({
     );
 };
 
-export default GatheringListModal;
+export { GatheringListModal };
