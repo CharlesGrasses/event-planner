@@ -57,7 +57,7 @@ const MonthlyCalendarData = (
     }, [calendarDays]);
 
     const handleDateClick = (date: Date) => {
-        if (!DatesUtilities.isPast(date)) {
+        if (!DatesUtilities.isPastDay(date)) {
             setSelectedDate(date);
         }
     };
@@ -73,8 +73,8 @@ const MonthlyCalendarData = (
                             className={cx(
                                 `aspect-video transition-colors flex calendarCell p-1`,
                                 {
-                                    calendarDateFromThePast: DatesUtilities.isPast(date),
-                                    calendarDate: !DatesUtilities.isPast(date),
+                                    calendarDateFromThePast: DatesUtilities.isPastDay(date),
+                                    calendarDate: !DatesUtilities.isPastDay(date),
                                     calendarDateBorderRight: (index%7) < 6,
                                     calendarDateBorderBottom: index < calendarDays.length - 7
                                 }

@@ -30,7 +30,7 @@ const HourCalendarSlotData = ({
     };
 
     const checkDate = DatesUtilities.copyDateSetHour(date, hour);
-    const isPast = DatesUtilities.isPast(checkDate);
+    const isPast = DatesUtilities.isPastHour(checkDate);
 
     return (
         <div

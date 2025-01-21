@@ -77,10 +77,15 @@ namespace DatesUtilities {
         return date.toDateString() === today.toDateString();
     }
 
-    export function isPast (date: Date) {
+    export function isPastHour (date: Date) {
         const today = new Date();
         today.setHours(today.getHours(), 0, 0, 0);
         return date.getTime() < today.getTime();
+    }
+
+    export function isPastDay (date: Date) {
+        const today = new Date().setHours(0, 0, 0, 0);
+        return date.getTime() < today;
     }
 
     export function copyDate(date: Date) {
