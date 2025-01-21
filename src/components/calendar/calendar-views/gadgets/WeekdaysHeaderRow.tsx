@@ -11,7 +11,7 @@ interface MonthlyWeekdaysProps {
 }
 
 
-const MonthlyCalendarWeekdays = (
+const MonthlyCalendarRow = (
     {
         locale = 'es-CL',
         userWeekday = MONDAY_SHORT
@@ -37,4 +37,4 @@ const MonthlyCalendarWeekdays = (
 };
 
 
-export { MonthlyCalendarWeekdays };
+export { MonthlyCalendarRow };
