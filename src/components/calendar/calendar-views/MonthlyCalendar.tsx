@@ -6,7 +6,7 @@ import { DatesUtilities } from '@/services';
 
 import { MONDAY_SHORT } from '@/constants';
 
-import { MonthlyCalendarData, MonthlyCalendarRow } from '@/components/calendar';
+import { MonthlyCalendarSlotsData, MonthlyCalendarRow } from '@/components/calendar';
 
 
 interface MonthlyCalendarProps {
@@ -57,7 +57,7 @@ const MonthlyCalendar = (
                 locale={locale}
                 userWeekday={MONDAY_SHORT}
             />
-            <MonthlyCalendarData
+            <MonthlyCalendarSlotsData
                 locale={locale}
                 calendarDays={calendarDays}
             />

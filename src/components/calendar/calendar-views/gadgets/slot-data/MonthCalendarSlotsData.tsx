@@ -11,7 +11,7 @@ import { DayCalendarSlotData } from "@/components/calendar";
 import { GatheringListModal } from "@/components/modal";
 
 
-interface MonthlyCalendarDataProps {
+interface MonthlyCalendarSlotsDataProps {
     locale:string,
     calendarDays:any
 }
@@ -21,11 +21,11 @@ interface DateGatherings {
 }
 
 
-const MonthlyCalendarData = (
+const MonthlyCalendarSlotsData = (
     {
         locale = 'esCL',
         calendarDays = [new Date()]
-    } : MonthlyCalendarDataProps
+    } : MonthlyCalendarSlotsDataProps
 ) => {
 
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -117,4 +117,4 @@ const MonthlyCalendarData = (
     );
 };
 
-export { MonthlyCalendarData };
+export { MonthlyCalendarSlotsData };
