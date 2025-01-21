@@ -1,6 +1,8 @@
 const weekdayFormatterShort = new Intl.DateTimeFormat('en-US', { weekday: 'short'});
 const weekdayFormatterLong = new Intl.DateTimeFormat('en-US', { weekday: 'long'});
 
+export const DISPLAY_HOURS_PER_DAY = 24;
+
 export const SUNDAY_DATE_YEAR = 2024;
 export const SUNDAY_DATE_MONTH = 6;
 

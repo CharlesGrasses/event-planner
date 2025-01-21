@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
 import { APIrequests, DatesUtilities } from '@/services';
-import { MONDAY_SHORT } from '@/constants';
+import { DISPLAY_HOURS_PER_DAY, MONDAY_SHORT } from '@/constants';
 import { Gathering } from '@/types';
 
 import { GatheringListModal } from '@/components/modal';
@@ -28,7 +28,7 @@ const WeeklyCalendar = ({
     const [timeSlotGatherings, setTimeSlotGatherings] = useState<TimeSlotGatherings>({});
     
     const displayDate = useMemo(() => DatesUtilities.copyDate(currentDate), [currentDate.getTime()]);
-    const hours = useMemo(() => Array.from({ length: 16 }, (_, i) => i + 9), []);
+    const hours = useMemo(() => Array.from({ length: DISPLAY_HOURS_PER_DAY }, (_, i) => i + (24 - DISPLAY_HOURS_PER_DAY + 1)), []);
 
     const deviceTOplatform: any = DatesUtilities.computerWdayUser(
         locale,
@@ -39,8 +39,8 @@ const WeeklyCalendar = ({
         const year = currentDate.getFullYear();
         const monthNumber = currentDate.getMonth();
 
-        const startDate = date.getDate() - deviceTOplatform[date.getDay()].number + DatesUtilities.getFirstWeekday(locale);
-        
+        const startDate = date.getDate() - deviceTOplatform[date.getDay()].number;
+
         const dates = [];
 
         for (let i = 0; i < 7; i++) {

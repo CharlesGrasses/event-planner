@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 
+import { DISPLAY_HOURS_PER_DAY } from '@/constants';
+
 import { APIrequests, DatesUtilities } from '@/services';
 
 import { Gathering } from '@/types';
@@ -27,7 +29,7 @@ const DailyCalendar = ({
     const [timeSlotGatherings, setTimeSlotGatherings] = useState<TimeSlotGatherings>({});
     
     const displayDate = useMemo(() => DatesUtilities.copyDate(currentDate), [currentDate.getTime()]);
-    const hours = useMemo(() => Array.from({ length: 16 }, (_, i) => i + 9), []);
+    const hours = useMemo(() => Array.from({ length: DISPLAY_HOURS_PER_DAY }, (_, i) => i + (24 - DISPLAY_HOURS_PER_DAY + 1)), []);
 
     useEffect(() => {
         let isMounted = true;
