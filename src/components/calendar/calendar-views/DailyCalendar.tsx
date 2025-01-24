@@ -108,7 +108,7 @@ const DailyCalendar = ({
                     isOpen={!!selectedDateTime}
                     onClose={() => setSelectedDateTime(null)}
                     selectedDate={selectedDateTime}
-                    gatherings={timeSlotGatherings[DatesUtilities.getTimeSlotKey(selectedDateTime, selectedDateTime.getUTCHours())] || []}
+                    gatherings={timeSlotGatherings[DatesUtilities.getTimeSlotKey(selectedDateTime, selectedDateTime.getHours())] || []}
                 />
             )}
         </div>
